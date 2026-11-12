@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi ERD, Flowchart & Diagram UML Lengkap — E-Syahriyah PP Darul Muttaqin</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5.3 & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --pondok-green: #0f5132;
+            --pondok-emerald: #10b981;
+            --pondok-gold: #f59e0b;
+            --pondok-dark: #0f172a;
+            --bg-soft: #f8fafc;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Top Sticky Navbar (Hidden on Print) */
+        .top-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 1050;
+            background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
+            color: #fff;
+            padding: 0.85rem 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border-bottom: 3px solid var(--pondok-gold);
+        }
+
+        .brand-logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #fff;
+            padding: 2px;
+            border: 2px solid var(--pondok-gold);
+        }
+
+        /* Navigation Pills */
+        .nav-diagram-tabs {
+            background: #fff;
+            border-radius: 1rem;
+            padding: 0.5rem;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .nav-diagram-tabs .nav-link {
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.86rem;
+            border-radius: 0.65rem;
+            padding: 0.55rem 1rem;
+            border: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .nav-diagram-tabs .nav-link:hover {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .nav-diagram-tabs .nav-link.active {
+            background: #065f46;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(6, 95, 70, 0.25);
+        }
+
+        /* Section Cards */
+        .diagram-card {
+            background: #fff;
+            border-radius: 1.15rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+
+        .diagram-card-header {
+            background: linear-gradient(to right, #f8fafc, #ffffff);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1.15rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .diagram-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.3rem 0.7rem;
+            border-radius: 2rem;
+        }
+
+        .diagram-canvas {
+            padding: 1.5rem;
+            background: #ffffff;
+            overflow-x: auto;
+            text-align: center;
+            min-height: 220px;
+        }
+
+        .diagram-canvas svg {
+            max-width: 100%;
+            height: auto !important;
+        }
+
+        .diagram-footer-note {
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            padding: 0.9rem 1.5rem;
+            font-size: 0.84rem;
+            color: #475569;
+        }
+
+        /* Document Cover Header */
+        .doc-cover-banner {
+            background: #fff;
+            border-radius: 1.15rem;
+            border: 2px solid #065f46;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doc-cover-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(to bottom, #065f46, #f59e0b);
+        }
+
+        /* Table Dictionary Styling */
+        .schema-table th {
+            background: #0f172a;
+            color: #fff;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .schema-table td {
+            font-size: 0.82rem;
+            vertical-align: middle;
+        }
+        .pk-badge {
+            background: #fef3c7;
+            color: #b45309;
+            border: 1px solid #fcd34d;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.3rem;
+        }
+        .fk-badge {
+            background: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #7dd3fc;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.3rem;
+        }
+        .uk-badge {
+            background: #f3e8ff;
+            color: #7e22ce;
+            border: 1px solid #d8b4fe;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.3rem;
+        }
+
+        /* Mode: Show All Sections at once */
+        body.show-all-mode .tab-pane {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Print / Save as PDF Rules */
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 10mm;
+            }
+            body {
+                background: #fff !important;
+                color: #000 !important;
+            }
+            .no-print,
+            .top-toolbar,
+            .nav-diagram-tabs,
+            .btn-action-group {
+                display: none !important;
+            }
+            .container-fluid {
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+            .tab-content > .tab-pane {
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+            .diagram-card {
+                box-shadow: none !important;
+                border: 1px solid #94a3b8 !important;
+                margin-bottom: 18px !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .page-break-before {
+                break-before: page;
+                page-break-before: always;
+            }
+            .diagram-canvas {
+                overflow: visible !important;
+                padding: 10px !important;
+            }
+            .diagram-canvas svg {
+                max-width: 100% !important;
+                max-height: 155mm !important;
+                width: auto !important;
+                height: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="show-all-mode">
+
+    <!-- =================================================================== -->
+    <!-- TOP STICKY TOOLBAR (PDF DOWNLOAD & FILTER CONTROLS)                 -->
+    <!-- =================================================================== -->
+    <div class="top-toolbar no-print">
+        <div class="container-fluid d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <img src="img/logo.jpg" alt="Logo Pondok" class="brand-logo" onerror="this.style.display='none'">
+                <div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-warning text-dark fw-bold" style="font-size: 0.7rem;">DOKUMEN ARSITEKTUR SISTEM</span>
+                        <span class="text-white-50 small d-none d-md-inline">| E-Syahriyah v2.5</span>
+                    </div>
+                    <h5 class="fw-bold mb-0 text-white">Flowchart, ERD &amp; Diagram UML Lengkap — PP Darul Muttaqin</h5>
+                </div>
+            </div>
+
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <button type="button" id="btnToggleViewMode" class="btn btn-outline-light btn-sm fw-semibold px-3" onclick="toggleShowAllMode()">
+                    <i class="bi bi-layers-half me-1"></i> Mode: Tampilkan Semua
+                </button>
+                <button type="button" id="btnDirectPdf" class="btn btn-warning text-dark btn-sm fw-bold px-3 shadow-sm" onclick="downloadDirectPDF()">
+                    <i class="bi bi-file-earmark-arrow-down-fill me-1"></i> Unduh File PDF (.pdf)
+                </button>
+                <button type="button" class="btn btn-success btn-sm fw-bold px-3 shadow-sm" onclick="printVectorPDF()">
+                    <i class="bi bi-printer-fill me-1"></i> Cetak / Simpan PDF (Vektor Tajam A4)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid px-3 px-md-4 py-4" id="printableDocumentArea">
+
+        <!-- =================================================================== -->
+        <!-- DOCUMENT HEADER / KOP DOKUMENTASI REKAYASA PERANGKAT LUNAK           -->
+        <!-- =================================================================== -->
+        <div class="doc-cover-banner">
+            <div class="row align-items-center g-3">
+                <div class="col-md-8">
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                        <img src="img/logo.jpg" alt="Logo Pondok" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #065f46;" onerror="this.style.display='none'">
+                        <div>
+                            <div class="text-uppercase fw-bold text-success small" style="letter-spacing: 0.08em;">Dokumentasi Perancangan Sistem Informasi</div>
+                            <h4 class="fw-extrabold text-dark mb-0">Sistem Informasi Pembayaran Syahriyah Santri (E-Syahriyah)</h4>
+                            <div class="text-muted small">Pondok Pesantren Darul Muttaqin — Terintegrasi Midtrans Payment Gateway &amp; Fonnte WhatsApp Gateway</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="d-inline-block text-start bg-light border rounded-3 px-3 py-2 small">
+                        <div><strong>Framework:</strong> Laravel 11.x (PHP 8.2, MVC)</div>
+                        <div><strong>Database:</strong> MySQL Relational DB (11 Tabel)</div>
+                        <div><strong>Standar Notasi:</strong> UML 2.5 &amp; Crow's Foot ERD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================== -->
+        <!-- NAVIGATION TABS                                                     -->
+        <!-- =================================================================== -->
+        <ul class="nav nav-diagram-tabs no-print" id="diagramTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#pane-all" type="button" onclick="enableShowAll()">
+                    <i class="bi bi-grid-1x2-fill"></i> Semua Diagram (Lengkap)
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-flowchart" type="button" onclick="disableShowAll('#pane-flowchart')">
+                    <i class="bi bi-diagram-2-fill"></i> 1. Flowchart Sistem
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-erd" type="button" onclick="disableShowAll('#pane-erd')">
+                    <i class="bi bi-database-fill-gear"></i> 2. ERD &amp; Kamus Database
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-usecase" type="button" onclick="disableShowAll('#pane-usecase')">
+                    <i class="bi bi-person-bounding-box"></i> 3. Use Case Diagram
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-activity" type="button" onclick="disableShowAll('#pane-activity')">
+                    <i class="bi bi-bezier2"></i> 4. Activity Diagram (5 Skenario)
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-sequence" type="button" onclick="disableShowAll('#pane-sequence')">
+                    <i class="bi bi-arrow-left-right"></i> 5. Sequence Diagram (4 Skenario)
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-class" type="button" onclick="disableShowAll('#pane-class')">
+                    <i class="bi bi-boxes"></i> 6. Class Diagram (MVC)
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="diagramTabContent">
+
+            <!-- =================================================================== -->
+            <!-- 1. FLOWCHART ALUR SISTEM KESELURUHAN (PRECISION VECTOR SVG)         -->
+            <!-- =================================================================== -->
+            <div class="tab-pane fade show active" id="pane-flowchart" role="tabpanel">
+                <div class="diagram-card">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-success-subtle text-success me-2">BAGIAN 1 — FLOWCHART SISTEM</span>
+                            <h5 class="fw-bold mb-0 mt-1">1.1. Flowchart Alur Utama Sistem Informasi Pembayaran Santri (End-to-End)</h5>
+                            <small class="text-muted">Menggambarkan siklus hidup tagihan mulai dari konfigurasi data master, penerbitan tagihan, pembayaran online/tunai, pengajuan penundaan, hingga pelaporan.</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('svg-flowchart-main', 'Flowchart_Sistem_ESyahriyah')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('svg-flowchart-main', 'Flowchart_Sistem_ESyahriyah')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+                    <div class="diagram-canvas" id="svg-flowchart-main">
+                        <svg viewBox="0 0 1200 760" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" font-family="Plus Jakarta Sans, Arial, sans-serif">
+                            <defs>
+                                <marker id="fc-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#334155"/>
+                                </marker>
+                            </defs>
+                            <rect width="1200" height="760" fill="#ffffff" rx="12"/>
+
+                            <!-- Terminator: MULAI -->
+                            <rect x="520" y="18" width="160" height="40" rx="20" fill="#065f46" stroke="#047857" stroke-width="2"/>
+                            <text x="600" y="43" text-anchor="middle" fill="#fff" font-weight="800" font-size="13">MULAI (START)</text>
+                            <line x1="600" y1="58" x2="600" y2="85" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+
+                            <!-- Input: Login -->
+                            <polygon points="465,85 755,85 735,130 445,130" fill="#f8fafc" stroke="#0f172a" stroke-width="2"/>
+                            <text x="600" y="112" text-anchor="middle" fill="#0f172a" font-weight="700" font-size="12.5">Input Username &amp; Password (Login)</text>
+                            <line x1="600" y1="130" x2="600" y2="158" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+
+                            <!-- Decision: Cek Role -->
+                            <polygon points="600,158 710,198 600,238 490,198" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                            <text x="600" y="195" text-anchor="middle" fill="#92400e" font-weight="800" font-size="12">Autentikasi &amp;</text>
+                            <text x="600" y="210" text-anchor="middle" fill="#92400e" font-weight="700" font-size="11.5">Cek Role User?</text>
+
+                            <!-- Branch Left: ADMIN -->
+                            <polyline points="490,198 180,198 180,255" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+                            <text x="335" y="190" text-anchor="middle" fill="#b45309" font-weight="700" font-size="11.5">Role = Admin</text>
+
+                            <rect x="55" y="255" width="250" height="64" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+                            <text x="180" y="278" text-anchor="middle" fill="#78350f" font-weight="700" font-size="12">Kelola Data Master Sistem</text>
+                            <text x="180" y="295" text-anchor="middle" fill="#92400e" font-size="11">(Users, Santri, Program, Tahun Ajaran,</text>
+                            <text x="180" y="310" text-anchor="middle" fill="#92400e" font-size="11">Konfigurasi Midtrans &amp; Fonnte WA)</text>
+                            <line x1="180" y1="319" x2="180" y2="360" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+
+                            <rect x="65" y="360" width="230" height="46" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.8"/>
+                            <text x="180" y="381" text-anchor="middle" fill="#1e293b" font-weight="700" font-size="11.5">Catat Audit Trail Otomatis</text>
+                            <text x="180" y="397" text-anchor="middle" fill="#475569" font-size="10.5">(Tabel activity_logs)</text>
+
+                            <!-- Branch Center: BENDAHARA -->
+                            <line x1="600" y1="238" x2="600" y2="265" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+                            <text x="655" y="255" text-anchor="middle" fill="#065f46" font-weight="700" font-size="11.5">Role = Bendahara</text>
+
+                            <rect x="465" y="265" width="270" height="54" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="600" y="288" text-anchor="middle" fill="#065f46" font-weight="700" font-size="12">Terbitkan Tagihan Santri</text>
+                            <text x="600" y="305" text-anchor="middle" fill="#047857" font-size="11">(Individu / Generator Massal SMP &amp; SMA)</text>
+                            <line x1="600" y1="319" x2="600" y2="348" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+
+                            <!-- Database Cylinder: Tabel Tagihan -->
+                            <rect x="495" y="348" width="210" height="46" rx="12" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="600" y="369" text-anchor="middle" fill="#0c4a6e" font-weight="800" font-size="12">DB: Tabel tagihan</text>
+                            <text x="600" y="385" text-anchor="middle" fill="#0369a1" font-size="11">(status = belum_bayar)</text>
+
+                            <!-- Branch Right: WALI SANTRI -->
+                            <polyline points="710,198 1005,198 1005,265" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+                            <text x="860" y="190" text-anchor="middle" fill="#0369a1" font-weight="700" font-size="11.5">Role = Wali Santri</text>
+
+                            <rect x="875" y="265" width="260" height="54" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+                            <text x="1005" y="288" text-anchor="middle" fill="#1e3a8a" font-weight="700" font-size="12">Buka Portal Wali Santri</text>
+                            <text x="1005" y="305" text-anchor="middle" fill="#1d4ed8" font-size="11">(Lihat Tagihan Aktif &amp; Progres Cicilan)</text>
+
+                            <!-- Merge to Decision: Pilihan Tindakan Tagihan -->
+                            <line x1="600" y1="394" x2="600" y2="430" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+                            <polyline points="1005,319 1005,412 600,412" fill="none" stroke="#334155" stroke-width="2"/>
+
+                            <polygon points="600,430 725,470 600,510 475,470" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                            <text x="600" y="466" text-anchor="middle" fill="#92400e" font-weight="800" font-size="11.5">Metode Penyelesaian</text>
+                            <text x="600" y="481" text-anchor="middle" fill="#92400e" font-weight="700" font-size="11">/ Respon Tagihan?</text>
+
+                            <!-- Option 1: Kasir Tunai (Left-Center) -->
+                            <polyline points="475,470 365,470 365,525" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+                            <text x="415" y="462" text-anchor="middle" fill="#065f46" font-weight="700" font-size="11">1. Kasir Tunai</text>
+                            <rect x="255" y="525" width="220" height="52" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.8"/>
+                            <text x="365" y="547" text-anchor="middle" fill="#065f46" font-weight="700" font-size="11.5">Bendahara Input Bayar Tunai</text>
+                            <text x="365" y="563" text-anchor="middle" fill="#047857" font-size="10.5">(metode = tunai, settlement)</text>
+
+                            <!-- Option 2: Midtrans Online (Center) -->
+                            <line x1="600" y1="510" x2="600" y2="525" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+                            <text x="665" y="520" text-anchor="middle" fill="#1d4ed8" font-weight="700" font-size="11">2. Online Gateway</text>
+                            <rect x="490" y="525" width="220" height="52" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+                            <text x="600" y="547" text-anchor="middle" fill="#1e3a8a" font-weight="700" font-size="11.5">Bayar via Midtrans QRIS / VA</text>
+                            <text x="600" y="563" text-anchor="middle" fill="#1d4ed8" font-size="10.5">(Penuh 100% / Cicil &rarr; Webhook)</text>
+
+                            <!-- Option 3: Ajukan Penundaan (Right) -->
+                            <polyline points="725,470 985,470 985,525" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+                            <text x="860" y="462" text-anchor="middle" fill="#b45309" font-weight="700" font-size="11">3. Terkendala / Belum Bayar</text>
+                            <rect x="840" y="525" width="290" height="52" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.8"/>
+                            <text x="985" y="547" text-anchor="middle" fill="#92400e" font-weight="700" font-size="11.5">Wali Ajukan Penundaan &amp; Alasan</text>
+                            <text x="985" y="563" text-anchor="middle" fill="#b45309" font-size="10.5">(Kategori, Alasan, Tgl Janji &harr; Tanggapan Bendahara)</text>
+
+                            <!-- Update Tagihan & Kwitansi + WA -->
+                            <polyline points="365,577 365,615 480,615" fill="none" stroke="#334155" stroke-width="2"/>
+                            <line x1="600" y1="577" x2="600" y2="595" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+
+                            <rect x="450" y="595" width="300" height="52" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+                            <text x="600" y="617" text-anchor="middle" fill="#166534" font-weight="700" font-size="11.5">Update Tagihan (Lunas/Dicicil), Terbitkan</text>
+                            <text x="600" y="633" text-anchor="middle" fill="#15803d" font-size="11">Kwitansi Resmi &amp; Kirim WA Otomatis (Fonnte)</text>
+
+                            <!-- Laporan Keuangan & Rekapan Tunggakan -->
+                            <line x1="600" y1="647" x2="600" y2="668" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+                            <polyline points="985,577 985,688 765,688" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+
+                            <rect x="435" y="668" width="330" height="40" rx="8" fill="#f8fafc" stroke="#0f172a" stroke-width="2"/>
+                            <text x="600" y="693" text-anchor="middle" fill="#0f172a" font-weight="700" font-size="12">Laporan Pemasukan &amp; Rekapan Tunggakan (PDF/Excel/CSV)</text>
+
+                            <!-- Terminator: SELESAI -->
+                            <line x1="600" y1="708" x2="600" y2="722" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+                            <polyline points="180,406 180,738 520,738" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fc-arrow)"/>
+                            <rect x="520" y="718" width="160" height="34" rx="17" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                            <text x="600" y="740" text-anchor="middle" fill="#fff" font-weight="800" font-size="12.5">SELESAI (END)</text>
+                        </svg>
+                    </div>
+                    <div class="diagram-footer-note">
+                        <strong>Keterangan Alur:</strong> Sistem mendukung 3 jalur penyelesaian tagihan secara terpadu: (1) <em>Self-Service Payment Gateway</em> melalui Midtrans QRIS/VA (penuh maupun cicilan), (2) <em>Kasir Tunai</em> oleh Bendahara, serta (3) <em>Mekanisme Pengajuan Penundaan &amp; Alasan Tunggakan</em> dua arah antara Wali Santri dan Bendahara.
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================================================== -->
+            <!-- 2. ENTITY RELATIONSHIP DIAGRAM (ERD) & STRUKTUR TABEL               -->
+            <!-- =================================================================== -->
+            <div class="tab-pane fade" id="pane-erd" role="tabpanel">
+                <div class="diagram-card page-break-before">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-primary-subtle text-primary me-2">BAGIAN 2 — ENTITY RELATIONSHIP DIAGRAM (ERD)</span>
+                            <h5 class="fw-bold mb-0 mt-1">2.1. Diagram Relasi Entitas (ERD Crow's Foot) — 11 Tabel Database `db_pembayaran_santri`</h5>
+                            <small class="text-muted">Memvisualisasikan seluruh tabel, Primary Key (PK), Foreign Key (FK), Unique Key (UK), tipe data, serta kardinalitas antar tabel.</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('mermaid-erd-main', 'ERD_Database_ESyahriyah')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('mermaid-erd-main', 'ERD_Database_ESyahriyah')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+                    <div class="diagram-canvas" id="mermaid-erd-main">
+                        <pre class="mermaid">
+erDiagram
+    USERS ||--o{ SANTRI : "memiliki_anak (id_wali)"
+    USERS ||--o{ PEMBAYARAN : "memverifikasi (verified_by)"
+    USERS ||--o{ ACTIVITY_LOGS : "mencatat_log (user_id)"
+    PROGRAM ||--o{ SANTRI : "menaungi (id_program)"
+    SANTRI ||--o{ TAGIHAN : "memiliki_tagihan (nis)"
+    SANTRI ||--o{ NOTIFIKASI_WA : "menerima_wa (nis)"
+    JENIS_TAGIHAN ||--o{ TAGIHAN : "menentukan_komponen (id_jenis_tagihan)"
+    TAGIHAN ||--o{ PEMBAYARAN : "dibayar_melalui (id_tagihan)"
+    PEMBAYARAN ||--|| KWITANSI : "menghasilkan (id_pembayaran)"
+
+    USERS {
+        int id_user PK
+        varchar username UK
+        varchar password
+        varchar nama_lengkap
+        varchar no_telp
+        enum role "admin, bendahara, wali_santri"
+        tinyint is_active
+        datetime last_login_at
+        datetime created_at
+    }
+
+    PROGRAM {
+        varchar id_program PK
+        varchar nama_program
+        text keterangan
+    }
+
+    TAHUN_AJARAN {
+        int id_tahun_ajaran PK
+        varchar nama_tahun_ajaran
+        enum semester "Ganjil, Genap"
+        date tgl_mulai
+        date tgl_selesai
+        tinyint is_aktif
+        datetime created_at
+    }
+
+    SANTRI {
+        varchar nis PK
+        varchar nisn UK
+        varchar nama_santri
+        enum tingkat "SMP, SMA"
+        varchar kelas
+        enum jenis_kelamin "L, P"
+        date tgl_lahir
+        varchar id_program FK
+        int id_wali FK
+        enum status_aktif "aktif, alumni, mutasi"
+        datetime created_at
+    }
+
+    JENIS_TAGIHAN {
+        int id_jenis_tagihan PK
+        varchar nama_tagihan
+        enum tipe "bulanan, insidental"
+        decimal nominal_standar
+        varchar keterangan
+    }
+
+    TAGIHAN {
+        int id_tagihan PK
+        varchar nis FK
+        int id_jenis_tagihan FK
+        varchar tahun_ajaran
+        tinyint bulan
+        decimal nominal_tagihan
+        decimal total_terbayar
+        decimal sisa_tagihan
+        date jatuh_tempo
+        enum status_tagihan "belum_bayar, dicicil, menunggu_verifikasi, lunas"
+        varchar kategori_tunggakan "panen, gaji_tertunda, keringanan, musibah, janji_bayar"
+        varchar alasan_tunggakan
+        date tgl_janji_bayar
+        text catatan_bendahara
+        datetime updated_alasan_at
+        datetime created_at
+    }
+
+    PEMBAYARAN {
+        int id_pembayaran PK
+        varchar order_id UK
+        int id_tagihan FK
+        datetime tgl_bayar
+        decimal jumlah_bayar
+        decimal biaya_admin
+        decimal total_bayar
+        enum metode_bayar "gateway, tunai"
+        varchar channel_bayar
+        varchar va_number
+        varchar snap_token
+        enum status_transaksi "pending, settlement, expire, cancel, deny"
+        datetime settlement_time
+        text gateway_response
+        int verified_by FK
+    }
+
+    KWITANSI {
+        int id_kwitansi PK
+        varchar no_kwitansi UK
+        int id_pembayaran FK "Unique One-to-One"
+        datetime tgl_terbit
+    }
+
+    NOTIFIKASI_WA {
+        int id_notifikasi PK
+        varchar nis FK
+        varchar no_tujuan
+        text pesan
+        enum jenis_pesan "tagihan_baru, pengingat_tempo, pembayaran_sukses"
+        enum status_kirim "pending, terkirim, gagal"
+        datetime tgl_kirim
+        text response_api
+    }
+
+    PENGATURAN {
+        varchar setting_key PK
+        text setting_value
+        varchar label
+        varchar kategori
+        datetime updated_at
+    }
+
+    ACTIVITY_LOGS {
+        int id PK
+        int user_id FK
+        varchar username
+        varchar role
+        varchar action
+        text description
+        varchar ip_address
+        text user_agent
+        datetime created_at
+    }
+                        </pre>
+                    </div>
+                    <div class="diagram-footer-note">
+                        <strong>Ringkasan Kardinalitas Relasi:</strong>
+                        <code>users (1) ──&lt; (N) santri</code> |
+                        <code>program (1) ──&lt; (N) santri</code> |
+                        <code>santri (1) ──&lt; (N) tagihan</code> |
+                        <code>jenis_tagihan (1) ──&lt; (N) tagihan</code> |
+                        <code>tagihan (1) ──&lt; (N) pembayaran</code> (mendukung cicilan berkali-kali untuk 1 tagihan) |
+                        <code>pembayaran (1) ── (1) kwitansi</code>.
+                    </div>
+                </div>
+
+                <!-- KAMUS DATA RINGKAS -->
+                <div class="diagram-card">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-primary-subtle text-primary me-2">SPESIFIKASI SKEMA DATABASE</span>
+                            <h5 class="fw-bold mb-0 mt-1">2.2. Kamus Data &amp; Relasi Kunci Asing (Foreign Keys)</h5>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover schema-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 45px;">No</th>
+                                        <th>Nama Tabel</th>
+                                        <th>Primary Key</th>
+                                        <th>Foreign Key / Relasi</th>
+                                        <th>Fungsi Utama dalam Sistem E-Syahriyah</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center fw-bold">1</td>
+                                        <td class="font-monospace fw-bold text-dark">users</td>
+                                        <td><span class="pk-badge">PK</span> <code>id_user</code></td>
+                                        <td><span class="uk-badge">UK</span> <code>username</code></td>
+                                        <td>Menyimpan akun pengguna multi-role (<code>admin</code>, <code>bendahara</code>, <code>wali_santri</code>).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center fw-bold">2</td>
+                                        <td class="font-monospace fw-bold text-dark">program</td>
+                                        <td><span class="pk-badge">PK</span> <code>id_program</code></td>
+                                        <td>-</td>
+                                        <td>Data master program unggulan pesantren (Tahfidz, Kitab Kuning, Bahasa, Sains).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center fw-bold">3</td>
+                                        <td class="font-monospace fw-bold text-dark">tahun_ajaran</td>
+                                        <td><span class="pk-badge">PK</span> <code>id_tahun_ajaran</code></td>
+                                        <td>-</td>
+                                        <td>Data master periode tahun ajaran dan semester aktif (Ganjil/Genap).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center fw-bold">4</td>
+                                        <td class="font-monospace fw-bold text-dark">santri</td>
+                                        <td><span class="pk-badge">PK</span> <code>nis</code></td>
+                                        <td><span class="fk-badge">FK</span> <code>id_program</code> &rarr; <code>program</code><br><span class="fk-badge">FK</span> <code>id_wali</code> &rarr; <code>users</code></td>
+                                        <td>Biodata santri SMP/SMA, status aktif, serta tautan ke akun Wali Santri.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center fw-bold">5</td>
+                                        <td class="font-monospace fw-bold text-dark">jenis_tagihan</td>
+                                        <td><span class="pk-badge">PK</span> <code>id_jenis_tagihan</code></td>
+                                        <td>-</td>
+                                        <td>Master komponen biaya pendidikan (Syahriah Bulanan, Uang Pangkal, Daftar Ulang, dll.).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center fw-bold">6</td>
+                                        <td class="font-monospace fw-bold text-dark">tagihan</td>
+                                        <td><span class="pk-badge">PK</span> <code>id_tagihan</code></td>
+                                        <td><span class="fk-badge">FK</span> <code>nis</code> &rarr; <code>santri</code><br><span class="fk-badge">FK</span> <code>id_jenis_tagihan</code> &rarr; <code>jenis_tagihan</code></td>
+                                        <td>Kewajiban bayar santri, progres cicilan, serta <strong>alasan tunggakan, tanggal janji bayar, &amp; tanggapan bendahara</strong>.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center fw-bold">7</td>
+                                        <td class="font-monospace fw-bold text-dark">pembayaran</td>
+                                        <td><span class="pk-badge">PK</span> <code>id_pembayaran</code></td>
+                                        <td><span class="fk-badge">FK</span> <code>id_tagihan</code> &rarr; <code>tagihan</code><br><span class="fk-badge">FK</span> <code>verified_by</code> &rarr; <code>users</code></td>
+                                        <td>Transaksi pembayaran via Midtrans Gateway (QRIS/VA) maupun Kasir Tunai Bendahara.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center fw-bold">8</td>
+                                        <td class="font-monospace fw-bold text-dark">kwitansi</td>
+                                        <td><span class="pk-badge">PK</span> <code>id_kwitansi</code></td>
+                                        <td><span class="fk-badge">FK/UK</span> <code>id_pembayaran</code> &rarr; <code>pembayaran</code></td>
+                                        <td>Bukti pembayaran sah berformat nomor resmi (<code>KWT/YYYYMM/XXXX</code>).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center fw-bold">9</td>
+                                        <td class="font-monospace fw-bold text-dark">notifikasi_wa</td>
+                                        <td><span class="pk-badge">PK</span> <code>id_notifikasi</code></td>
+                                        <td><span class="fk-badge">FK</span> <code>nis</code> &rarr; <code>santri</code></td>
+                                        <td>Log riwayat pengiriman pesan otomatis WhatsApp melalui API Fonnte.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center fw-bold">10</td>
+                                        <td class="font-monospace fw-bold text-dark">pengaturan</td>
+                                        <td><span class="pk-badge">PK</span> <code>setting_key</code></td>
+                                        <td>-</td>
+                                        <td>Penyimpanan dinamis kredensial Midtrans, token Fonnte WA, dan profil pondok.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center fw-bold">11</td>
+                                        <td class="font-monospace fw-bold text-dark">activity_logs</td>
+                                        <td><span class="pk-badge">PK</span> <code>id</code></td>
+                                        <td><span class="fk-badge">FK</span> <code>user_id</code> &rarr; <code>users</code></td>
+                                        <td>Rekam jejak audit keamanan sistem (login, buat tagihan, bayar, ajukan penundaan).</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================================================== -->
+            <!-- 3. UML USE CASE DIAGRAM                                             -->
+            <!-- =================================================================== -->
+            <div class="tab-pane fade" id="pane-usecase" role="tabpanel">
+                <div class="diagram-card page-break-before">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-warning-subtle text-warning-emphasis me-2">BAGIAN 3 — UML USE CASE DIAGRAM</span>
+                            <h5 class="fw-bold mb-0 mt-1">3.1. Use Case Diagram Sistem E-Syahriyah (3 Aktor Internal &amp; 2 Aktor Sistem Eksternal)</h5>
+                            <small class="text-muted">Menggunakan notasi standar UML Use Case (Stick-man Actor, System Boundary Box, Use Case Ellipse, serta relasi &laquo;include&raquo; dan &laquo;extend&raquo;).</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('usecase-svg-container', 'UseCase_Diagram_ESyahriyah')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('usecase-svg-container', 'UseCase_Diagram_ESyahriyah')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="diagram-canvas" id="usecase-svg-container">
+                        <svg viewBox="0 0 1220 820" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" font-family="Plus Jakarta Sans, Arial, sans-serif">
+                            <defs>
+                                <marker id="arrow-solid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+                                </marker>
+                                <marker id="arrow-dashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 10 5 L 0 9" fill="none" stroke="#0284c7" stroke-width="1.8"/>
+                                </marker>
+                            </defs>
+
+                            <rect width="1220" height="820" fill="#ffffff" rx="12"/>
+
+                            <!-- SYSTEM BOUNDARY BOX -->
+                            <rect x="240" y="25" width="730" height="770" fill="#f8fafc" stroke="#0f172a" stroke-width="2.5" rx="10"/>
+                            <rect x="240" y="25" width="730" height="40" fill="#065f46" rx="8"/>
+                            <text x="605" y="50" text-anchor="middle" fill="#ffffff" font-weight="800" font-size="15">
+                                &laquo;System&raquo; Sistem Informasi Pembayaran Syahriyah Santri (E-Syahriyah)
+                            </text>
+
+                            <!-- Actor 1: ADMIN -->
+                            <g transform="translate(85, 135)">
+                                <circle cx="0" cy="0" r="18" fill="#fef3c7" stroke="#b45309" stroke-width="2.5"/>
+                                <line x1="0" y1="18" x2="0" y2="62" stroke="#b45309" stroke-width="2.5"/>
+                                <line x1="-26" y1="34" x2="26" y2="34" stroke="#b45309" stroke-width="2.5"/>
+                                <line x1="0" y1="62" x2="-22" y2="95" stroke="#b45309" stroke-width="2.5"/>
+                                <line x1="0" y1="62" x2="22" y2="95" stroke="#b45309" stroke-width="2.5"/>
+                                <text x="0" y="116" text-anchor="middle" font-weight="800" font-size="13.5" fill="#78350f">Administrator</text>
+                            </g>
+
+                            <!-- Actor 2: BENDAHARA -->
+                            <g transform="translate(85, 415)">
+                                <circle cx="0" cy="0" r="18" fill="#d1fae5" stroke="#065f46" stroke-width="2.5"/>
+                                <line x1="0" y1="18" x2="0" y2="62" stroke="#065f46" stroke-width="2.5"/>
+                                <line x1="-26" y1="34" x2="26" y2="34" stroke="#065f46" stroke-width="2.5"/>
+                                <line x1="0" y1="62" x2="-22" y2="95" stroke="#065f46" stroke-width="2.5"/>
+                                <line x1="0" y1="62" x2="22" y2="95" stroke="#065f46" stroke-width="2.5"/>
+                                <text x="0" y="116" text-anchor="middle" font-weight="800" font-size="13.5" fill="#065f46">Bendahara Pondok</text>
+                            </g>
+
+                            <!-- Actor 3: WALI SANTRI -->
+                            <g transform="translate(85, 655)">
+                                <circle cx="0" cy="0" r="18" fill="#e0f2fe" stroke="#0369a1" stroke-width="2.5"/>
+                                <line x1="0" y1="18" x2="0" y2="62" stroke="#0369a1" stroke-width="2.5"/>
+                                <line x1="-26" y1="34" x2="26" y2="34" stroke="#0369a1" stroke-width="2.5"/>
+                                <line x1="0" y1="62" x2="-22" y2="95" stroke="#0369a1" stroke-width="2.5"/>
+                                <line x1="0" y1="62" x2="22" y2="95" stroke="#0369a1" stroke-width="2.5"/>
+                                <text x="0" y="116" text-anchor="middle" font-weight="800" font-size="13.5" fill="#0369a1">Wali Santri</text>
+                            </g>
+
+                            <!-- Actor 4: MIDTRANS -->
+                            <g transform="translate(1115, 470)">
+                                <rect x="-65" y="-25" width="130" height="75" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.2"/>
+                                <text x="0" y="-2" text-anchor="middle" font-size="11" font-weight="700" fill="#1e40af">&laquo;External System&raquo;</text>
+                                <text x="0" y="18" text-anchor="middle" font-size="13" font-weight="800" fill="#1e3a8a">Midtrans API</text>
+                                <text x="0" y="35" text-anchor="middle" font-size="10.5" fill="#3b82f6">(QRIS &amp; Virtual Account)</text>
+                            </g>
+
+                            <!-- Actor 5: FONNTE WA -->
+                            <g transform="translate(1115, 640)">
+                                <rect x="-65" y="-25" width="130" height="75" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2.2"/>
+                                <text x="0" y="-2" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">&laquo;External System&raquo;</text>
+                                <text x="0" y="18" text-anchor="middle" font-size="13" font-weight="800" fill="#14532d">Fonnte WA API</text>
+                                <text x="0" y="35" text-anchor="middle" font-size="10.5" fill="#16a34a">(WhatsApp Gateway)</text>
+                            </g>
+
+                            <!-- Shared Auth Use Case -->
+                            <g transform="translate(795, 115)">
+                                <ellipse cx="0" cy="0" rx="125" ry="28" fill="#fef9c3" stroke="#ca8a04" stroke-width="2"/>
+                                <text x="0" y="-2" text-anchor="middle" font-weight="700" font-size="12.5" fill="#713f12">UC-01: Login &amp; Validasi</text>
+                                <text x="0" y="14" text-anchor="middle" font-size="11" fill="#854d0e">Multi-Role Access</text>
+                            </g>
+
+                            <!-- Admin Use Cases -->
+                            <g transform="translate(435, 105)">
+                                <ellipse cx="0" cy="0" rx="145" ry="26" fill="#ffffff" stroke="#b45309" stroke-width="1.8"/>
+                                <text x="0" y="4" text-anchor="middle" font-weight="600" font-size="12" fill="#1e293b">UC-02: Kelola Pengguna &amp; Tahun Ajaran</text>
+                            </g>
+                            <g transform="translate(435, 168)">
+                                <ellipse cx="0" cy="0" rx="145" ry="26" fill="#ffffff" stroke="#b45309" stroke-width="1.8"/>
+                                <text x="0" y="4" text-anchor="middle" font-weight="600" font-size="12" fill="#1e293b">UC-03: Kelola Data Santri &amp; Program</text>
+                            </g>
+                            <g transform="translate(435, 230)">
+                                <ellipse cx="0" cy="0" rx="145" ry="26" fill="#ffffff" stroke="#b45309" stroke-width="1.8"/>
+                                <text x="0" y="4" text-anchor="middle" font-weight="600" font-size="12" fill="#1e293b">UC-04: Konfigurasi Midtrans, WA &amp; Audit</text>
+                            </g>
+
+                            <!-- Bendahara Use Cases -->
+                            <g transform="translate(435, 305)">
+                                <ellipse cx="0" cy="0" rx="150" ry="26" fill="#ffffff" stroke="#065f46" stroke-width="1.8"/>
+                                <text x="0" y="4" text-anchor="middle" font-weight="600" font-size="12" fill="#1e293b">UC-05: Kelola Jenis &amp; Generate Tagihan</text>
+                            </g>
+                            <g transform="translate(435, 370)">
+                                <ellipse cx="0" cy="0" rx="150" ry="26" fill="#ffffff" stroke="#065f46" stroke-width="1.8"/>
+                                <text x="0" y="4" text-anchor="middle" font-weight="600" font-size="12" fill="#1e293b">UC-06: Terima Pembayaran Kasir Tunai</text>
+                            </g>
+                            <g transform="translate(435, 435)">
+                                <ellipse cx="0" cy="0" rx="150" ry="26" fill="#ffffff" stroke="#065f46" stroke-width="1.8"/>
+                                <text x="0" y="4" text-anchor="middle" font-weight="600" font-size="12" fill="#1e293b">UC-07: Rekonsiliasi Transaksi Gateway</text>
+                            </g>
+                            <g transform="translate(435, 505)">
+                                <ellipse cx="0" cy="0" rx="155" ry="28" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                                <text x="0" y="-2" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">UC-08: Kelola Rekapan Tunggakan &amp;</text>
+                                <text x="0" y="13" text-anchor="middle" font-weight="700" font-size="11.5" fill="#065f46">Beri Tanggapan/Dispensasi Alasan</text>
+                            </g>
+                            <g transform="translate(435, 575)">
+                                <ellipse cx="0" cy="0" rx="150" ry="26" fill="#ffffff" stroke="#065f46" stroke-width="1.8"/>
+                                <text x="0" y="4" text-anchor="middle" font-weight="600" font-size="12" fill="#1e293b">UC-09: Cetak Laporan &amp; Export Excel/CSV</text>
+                            </g>
+
+                            <!-- Wali Santri Use Cases -->
+                            <g transform="translate(435, 645)">
+                                <ellipse cx="0" cy="0" rx="150" ry="26" fill="#ffffff" stroke="#0369a1" stroke-width="1.8"/>
+                                <text x="0" y="4" text-anchor="middle" font-weight="600" font-size="12" fill="#1e293b">UC-10: Lihat Dashboard, Tagihan &amp; Riwayat</text>
+                            </g>
+                            <g transform="translate(435, 710)">
+                                <ellipse cx="0" cy="0" rx="155" ry="27" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                                <text x="0" y="-2" text-anchor="middle" font-weight="700" font-size="12" fill="#0c4a6e">UC-11: Bayar Tagihan Online (Penuh/Cicil)</text>
+                                <text x="0" y="13" text-anchor="middle" font-size="11" fill="#0369a1">via QRIS / Virtual Account</text>
+                            </g>
+                            <g transform="translate(435, 768)">
+                                <ellipse cx="0" cy="0" rx="155" ry="24" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                                <text x="0" y="4" text-anchor="middle" font-weight="700" font-size="12" fill="#92400e">UC-12: Ajukan Penundaan &amp; Alasan Kendala</text>
+                            </g>
+
+                            <!-- Right-Side Included/Extended Use Cases -->
+                            <g transform="translate(805, 395)">
+                                <ellipse cx="0" cy="0" rx="130" ry="27" fill="#f1f5f9" stroke="#475569" stroke-width="1.8"/>
+                                <text x="0" y="-2" text-anchor="middle" font-weight="700" font-size="12" fill="#1e293b">UC-13: Terbitkan &amp; Cetak</text>
+                                <text x="0" y="13" text-anchor="middle" font-size="11.5" fill="#334155">Kwitansi Resmi Digital</text>
+                            </g>
+
+                            <g transform="translate(805, 515)">
+                                <ellipse cx="0" cy="0" rx="130" ry="27" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+                                <text x="0" y="-2" text-anchor="middle" font-weight="700" font-size="12" fill="#1e40af">UC-14: Proses Snap Token</text>
+                                <text x="0" y="13" text-anchor="middle" font-size="11.5" fill="#1d4ed8">&amp; Webhook Settlement</text>
+                            </g>
+
+                            <g transform="translate(805, 640)">
+                                <ellipse cx="0" cy="0" rx="130" ry="27" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.8"/>
+                                <text x="0" y="-2" text-anchor="middle" font-weight="700" font-size="12" fill="#166534">UC-15: Kirim Notifikasi &amp;</text>
+                                <text x="0" y="13" text-anchor="middle" font-size="11.5" fill="#15803d">Pengingat WhatsApp</text>
+                            </g>
+
+                            <!-- Associations -->
+                            <line x1="120" y1="165" x2="290" y2="105" stroke="#b45309" stroke-width="1.8"/>
+                            <line x1="120" y1="170" x2="290" y2="168" stroke="#b45309" stroke-width="1.8"/>
+                            <line x1="120" y1="178" x2="290" y2="230" stroke="#b45309" stroke-width="1.8"/>
+
+                            <line x1="125" y1="435" x2="285" y2="175" stroke="#065f46" stroke-width="1.5" stroke-dasharray="4,3"/>
+                            <line x1="125" y1="440" x2="285" y2="305" stroke="#065f46" stroke-width="1.8"/>
+                            <line x1="125" y1="445" x2="285" y2="370" stroke="#065f46" stroke-width="1.8"/>
+                            <line x1="125" y1="450" x2="285" y2="435" stroke="#065f46" stroke-width="1.8"/>
+                            <line x1="125" y1="455" x2="280" y2="505" stroke="#065f46" stroke-width="2"/>
+                            <line x1="125" y1="465" x2="285" y2="575" stroke="#065f46" stroke-width="1.8"/>
+
+                            <line x1="125" y1="680" x2="285" y2="645" stroke="#0369a1" stroke-width="1.8"/>
+                            <line x1="125" y1="690" x2="280" y2="710" stroke="#0369a1" stroke-width="2"/>
+                            <line x1="125" y1="700" x2="280" y2="768" stroke="#d97706" stroke-width="2"/>
+
+                            <line x1="935" y1="515" x2="1050" y2="495" stroke="#1d4ed8" stroke-width="2"/>
+                            <line x1="935" y1="640" x2="1050" y2="640" stroke="#15803d" stroke-width="2"/>
+
+                            <!-- Include / Extend -->
+                            <line x1="585" y1="370" x2="675" y2="390" stroke="#0284c7" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrow-dashed)"/>
+                            <text x="632" y="372" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0284c7">&laquo;include&raquo;</text>
+
+                            <line x1="590" y1="705" x2="725" y2="540" stroke="#0284c7" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrow-dashed)"/>
+                            <text x="680" y="615" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0284c7">&laquo;include&raquo;</text>
+
+                            <line x1="805" y1="488" x2="805" y2="425" stroke="#0284c7" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrow-dashed)"/>
+                            <text x="845" y="460" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0284c7">&laquo;include&raquo;</text>
+
+                            <line x1="590" y1="762" x2="525" y2="533" stroke="#d97706" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrow-dashed)"/>
+                            <text x="605" y="665" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">&laquo;extend&raquo;</text>
+
+                            <line x1="590" y1="512" x2="720" y2="618" stroke="#16a34a" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrow-dashed)"/>
+                            <text x="685" y="555" text-anchor="middle" font-size="10.5" font-weight="700" fill="#15803d">&laquo;extend&raquo;</text>
+
+                            <line x1="865" y1="422" x2="865" y2="610" stroke="#16a34a" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrow-dashed)"/>
+                            <text x="908" y="575" text-anchor="middle" font-size="10.5" font-weight="700" fill="#15803d">&laquo;include&raquo;</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================================================== -->
+            <!-- 4. UML ACTIVITY DIAGRAM (5 SKENARIO SWIMLANE VERTIKAL STANDAR UML)  -->
+            <!-- =================================================================== -->
+            <div class="tab-pane fade" id="pane-activity" role="tabpanel">
+
+                <!-- 4.1 Activity Diagram: Pembayaran Online Midtrans -->
+                <div class="diagram-card page-break-before">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-info-subtle text-info-emphasis me-2">BAGIAN 4 — UML ACTIVITY DIAGRAM (SKENARIO 1 DARI 5)</span>
+                            <h5 class="fw-bold mb-0 mt-1">4.1. Activity Diagram: Pembayaran Tagihan Online (Wali Santri &harr; Sistem &harr; Midtrans Gateway)</h5>
+                            <small class="text-muted">Menggunakan Swimlane Vertikal standar UML 2.5 (Initial Node, Activity State, Decision Node, dan Final State).</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('svg-act-1', 'Activity_1_Pembayaran_Online')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('svg-act-1', 'Activity_1_Pembayaran_Online')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+                    <div class="diagram-canvas" id="svg-act-1">
+                        <svg viewBox="0 0 1140 690" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" font-family="Plus Jakarta Sans, Arial, sans-serif">
+                            <defs>
+                                <marker id="act-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b"/>
+                                </marker>
+                            </defs>
+                            <!-- Swimlane Columns -->
+                            <rect x="10" y="10" width="360" height="670" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+                            <rect x="370" y="10" width="410" height="670" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+                            <rect x="780" y="10" width="350" height="670" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+
+                            <!-- Swimlane Headers -->
+                            <rect x="10" y="10" width="360" height="42" fill="#0369a1" stroke="#334155" stroke-width="2"/>
+                            <text x="190" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Wali Santri</text>
+
+                            <rect x="370" y="10" width="410" height="42" fill="#065f46" stroke="#334155" stroke-width="2"/>
+                            <text x="575" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Sistem E-Syahriyah (Laravel)</text>
+
+                            <rect x="780" y="10" width="350" height="42" fill="#1e3a8a" stroke="#334155" stroke-width="2"/>
+                            <text x="955" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Midtrans Payment Gateway</text>
+
+                            <!-- Initial Node -->
+                            <circle cx="190" cy="82" r="12" fill="#0f172a"/>
+                            <line x1="190" y1="94" x2="190" y2="118" stroke="#1e293b" stroke-width="2" marker-end="url(#act-arr)"/>
+
+                            <!-- Step 1 -->
+                            <rect x="55" y="118" width="270" height="46" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="190" y="138" text-anchor="middle" font-weight="700" font-size="12" fill="#0c4a6e">Buka Menu Tagihan Aktif &amp;</text>
+                            <text x="190" y="154" text-anchor="middle" font-size="11.5" fill="#0369a1">Klik Tombol "Bayar"</text>
+                            <line x1="190" y1="164" x2="190" y2="192" stroke="#1e293b" stroke-width="2" marker-end="url(#act-arr)"/>
+
+                            <!-- Step 2 -->
+                            <rect x="45" y="192" width="290" height="50" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="190" y="213" text-anchor="middle" font-weight="700" font-size="12" fill="#0c4a6e">Pilih Nominal Bayar: Lunas (100%)</text>
+                            <text x="190" y="229" text-anchor="middle" font-size="11.5" fill="#0369a1">atau Cicilan (25% / 50% / 75% / Manual)</text>
+                            <line x1="335" y1="217" x2="430" y2="217" stroke="#1e293b" stroke-width="2" marker-end="url(#act-arr)"/>
+
+                            <!-- Step 3 (System) -->
+                            <rect x="430" y="192" width="290" height="50" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="575" y="213" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Validasi Nominal &amp; Simpan Record</text>
+                            <text x="575" y="229" text-anchor="middle" font-size="11.5" fill="#047857">Tabel pembayaran (status = pending)</text>
+                            <line x1="720" y1="217" x2="820" y2="217" stroke="#1e293b" stroke-width="2" marker-end="url(#act-arr)"/>
+
+                            <!-- Step 4 (Midtrans) -->
+                            <rect x="820" y="192" width="270" height="50" rx="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+                            <text x="955" y="213" text-anchor="middle" font-weight="700" font-size="12" fill="#1e3a8a">Generate Snap Token &amp;</text>
+                            <text x="955" y="229" text-anchor="middle" font-size="11.5" fill="#1d4ed8">Tampilkan Pop-up QRIS / VA Bank</text>
+                            <polyline points="955,242 955,272 190,272 190,295" fill="none" stroke="#1e293b" stroke-width="2" marker-end="url(#act-arr)"/>
+
+                            <!-- Step 5 (Wali) -->
+                            <rect x="55" y="295" width="270" height="48" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="190" y="316" text-anchor="middle" font-weight="700" font-size="12" fill="#0c4a6e">Scan QRIS / Transfer Nomor VA</text>
+                            <text x="190" y="332" text-anchor="middle" font-size="11.5" fill="#0369a1">melalui M-Banking / E-Wallet</text>
+                            <polyline points="325,319 955,319 955,345" fill="none" stroke="#1e293b" stroke-width="2" marker-end="url(#act-arr)"/>
+
+                            <!-- Step 6 (Midtrans Webhook) -->
+                            <rect x="820" y="345" width="270" height="48" rx="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+                            <text x="955" y="366" text-anchor="middle" font-weight="700" font-size="12" fill="#1e3a8a">Verifikasi Dana &amp; Kirim</text>
+                            <text x="955" y="382" text-anchor="middle" font-size="11.5" fill="#1d4ed8">HTTP Webhook Notification</text>
+                            <line x1="820" y1="369" x2="665" y2="369" stroke="#1e293b" stroke-width="2" marker-end="url(#act-arr)"/>
+
+                            <!-- Decision: Settlement? -->
+                            <polygon points="575,335 665,369 575,403 485,369" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                            <text x="575" y="366" text-anchor="middle" font-weight="800" font-size="11.5" fill="#92400e">Status</text>
+                            <text x="575" y="380" text-anchor="middle" font-weight="700" font-size="11" fill="#92400e">Settlement?</text>
+
+                            <!-- Yes Branch -->
+                            <line x1="575" y1="403" x2="575" y2="440" stroke="#1e293b" stroke-width="2" marker-end="url(#act-arr)"/>
+                            <text x="615" y="425" font-size="11.5" font-weight="700" fill="#065f46">[Ya / Lunas]</text>
+
+                            <!-- Step 7 (System Update Tagihan) -->
+                            <rect x="425" y="440" width="300" height="52" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="575" y="462" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Update total_terbayar, sisa_tagihan</text>
+                            <text x="575" y="479" text-anchor="middle" font-size="11.5" fill="#047857">&amp; status_tagihan (lunas / dicicil)</text>
+                            <line x1="575" y1="492" x2="575" y2="525" stroke="#1e293b" stroke-width="2" marker-end="url(#act-arr)"/>
+
+                            <!-- Step 8 (Kwitansi & WA) -->
+                            <rect x="425" y="525" width="300" height="52" rx="18" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+                            <text x="575" y="547" text-anchor="middle" font-weight="700" font-size="12" fill="#166534">Terbitkan Kwitansi Resmi (KWT/...)</text>
+                            <text x="575" y="564" text-anchor="middle" font-size="11.5" fill="#15803d">&amp; Kirim Bukti Lunas via WhatsApp</text>
+                            <line x1="425" y1="551" x2="325" y2="551" stroke="#1e293b" stroke-width="2" marker-end="url(#act-arr)"/>
+
+                            <!-- Step 9 (Wali Receives Kwitansi) -->
+                            <rect x="55" y="525" width="270" height="52" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="190" y="547" text-anchor="middle" font-weight="700" font-size="12" fill="#0c4a6e">Terima Notifikasi WA &amp;</text>
+                            <text x="190" y="564" text-anchor="middle" font-size="11.5" fill="#0369a1">Cetak / Unduh Kwitansi Resmi</text>
+                            <line x1="190" y1="577" x2="190" y2="618" stroke="#1e293b" stroke-width="2" marker-end="url(#act-arr)"/>
+
+                            <!-- Final Node Bullseye -->
+                            <circle cx="190" cy="634" r="14" fill="#fff" stroke="#0f172a" stroke-width="2.5"/>
+                            <circle cx="190" cy="634" r="8" fill="#0f172a"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- 4.2 Activity Diagram: Pengajuan Penundaan & Alasan Tunggakan -->
+                <div class="diagram-card">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-warning-subtle text-warning-emphasis me-2">BAGIAN 4 — UML ACTIVITY DIAGRAM (SKENARIO 2 DARI 5)</span>
+                            <h5 class="fw-bold mb-0 mt-1">4.2. Activity Diagram: Pengajuan Penundaan Pembayaran (Wali Santri) &amp; Tindak Lanjut (Bendahara)</h5>
+                            <small class="text-muted">Alur komunikasi 2 arah pencatatan alasan belum bayar, estimasi tanggal janji bayar, dan tanggapan dispensasi dari Bendahara Pondok.</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('svg-act-2', 'Activity_2_Penundaan_Tunggakan')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('svg-act-2', 'Activity_2_Penundaan_Tunggakan')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+                    <div class="diagram-canvas" id="svg-act-2">
+                        <svg viewBox="0 0 1140 660" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" font-family="Plus Jakarta Sans, Arial, sans-serif">
+                            <defs>
+                                <marker id="act2-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b"/>
+                                </marker>
+                            </defs>
+                            <!-- Swimlane Columns -->
+                            <rect x="10" y="10" width="360" height="640" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+                            <rect x="370" y="10" width="400" height="640" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+                            <rect x="770" y="10" width="360" height="640" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+
+                            <!-- Headers -->
+                            <rect x="10" y="10" width="360" height="42" fill="#0369a1" stroke="#334155" stroke-width="2"/>
+                            <text x="190" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Wali Santri</text>
+
+                            <rect x="370" y="10" width="400" height="42" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                            <text x="570" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Sistem E-Syahriyah (Laravel)</text>
+
+                            <rect x="770" y="10" width="360" height="42" fill="#065f46" stroke="#334155" stroke-width="2"/>
+                            <text x="950" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Bendahara Pondok</text>
+
+                            <!-- Initial Node -->
+                            <circle cx="190" cy="82" r="12" fill="#0f172a"/>
+                            <line x1="190" y1="94" x2="190" y2="120" stroke="#1e293b" stroke-width="2" marker-end="url(#act2-arr)"/>
+
+                            <!-- W1 -->
+                            <rect x="45" y="120" width="290" height="48" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="190" y="141" text-anchor="middle" font-weight="700" font-size="12" fill="#0c4a6e">Klik Tombol "Ajukan Penundaan"</text>
+                            <text x="190" y="157" text-anchor="middle" font-size="11.5" fill="#0369a1">pada Tagihan yang Belum Lunas</text>
+                            <line x1="190" y1="168" x2="190" y2="198" stroke="#1e293b" stroke-width="2" marker-end="url(#act2-arr)"/>
+
+                            <!-- W2 -->
+                            <rect x="40" y="198" width="300" height="54" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                            <text x="190" y="220" text-anchor="middle" font-weight="700" font-size="12" fill="#92400e">Pilih Kategori Kendala (Panen / Gaji /</text>
+                            <text x="190" y="238" text-anchor="middle" font-size="11.5" fill="#b45309">Musibah), Tgl Janji Bayar &amp; Alasan</text>
+                            <line x1="340" y1="225" x2="425" y2="225" stroke="#1e293b" stroke-width="2" marker-end="url(#act2-arr)"/>
+
+                            <!-- S1 -->
+                            <rect x="425" y="198" width="290" height="54" rx="18" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+                            <text x="570" y="220" text-anchor="middle" font-weight="700" font-size="12" fill="#1e293b">Simpan ke Tabel tagihan &amp;</text>
+                            <text x="570" y="238" text-anchor="middle" font-size="11.5" fill="#334155">Catat Audit Log (WALI_PENUNDAAN)</text>
+                            <line x1="715" y1="225" x2="810" y2="225" stroke="#1e293b" stroke-width="2" marker-end="url(#act2-arr)"/>
+
+                            <!-- B1 -->
+                            <rect x="810" y="198" width="280" height="54" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="950" y="220" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Buka Menu Rekapan Tunggakan</text>
+                            <text x="950" y="238" text-anchor="middle" font-size="11.5" fill="#047857">&amp; Tinjau Alasan Wali Santri</text>
+                            <line x1="950" y1="252" x2="950" y2="290" stroke="#1e293b" stroke-width="2" marker-end="url(#act2-arr)"/>
+
+                            <!-- B2 -->
+                            <rect x="805" y="290" width="290" height="54" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="950" y="312" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Input Catatan Tindak Lanjut /</text>
+                            <text x="950" y="330" text-anchor="middle" font-size="11.5" fill="#047857">Persetujuan Dispensasi Bendahara</text>
+                            <line x1="805" y1="317" x2="715" y2="317" stroke="#1e293b" stroke-width="2" marker-end="url(#act2-arr)"/>
+
+                            <!-- S2 -->
+                            <rect x="425" y="290" width="290" height="54" rx="18" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+                            <text x="570" y="312" text-anchor="middle" font-weight="700" font-size="12" fill="#1e293b">Update Kolom catatan_bendahara</text>
+                            <text x="570" y="330" text-anchor="middle" font-size="11.5" fill="#334155">&amp; Sinkronisasi ke Laporan PDF/Excel</text>
+                            <line x1="570" y1="344" x2="570" y2="388" stroke="#1e293b" stroke-width="2" marker-end="url(#act2-arr)"/>
+
+                            <!-- S3 -->
+                            <rect x="425" y="388" width="290" height="52" rx="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+                            <text x="570" y="410" text-anchor="middle" font-weight="700" font-size="12" fill="#1e3a8a">Tampilkan Kotak Informasi</text>
+                            <text x="570" y="427" text-anchor="middle" font-size="11.5" fill="#1d4ed8">"Tanggapan Bendahara" di Portal Wali</text>
+                            <line x1="425" y1="414" x2="335" y2="414" stroke="#1e293b" stroke-width="2" marker-end="url(#act2-arr)"/>
+
+                            <!-- W3 -->
+                            <rect x="45" y="388" width="290" height="52" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="190" y="410" text-anchor="middle" font-weight="700" font-size="12" fill="#0c4a6e">Melihat Status Persetujuan &amp;</text>
+                            <text x="190" y="427" text-anchor="middle" font-size="11.5" fill="#0369a1">Melunasi Sesuai Tanggal Janji Bayar</text>
+                            <line x1="190" y1="440" x2="190" y2="575" stroke="#1e293b" stroke-width="2" marker-end="url(#act2-arr)"/>
+
+                            <!-- Final Node -->
+                            <circle cx="190" cy="592" r="14" fill="#fff" stroke="#0f172a" stroke-width="2.5"/>
+                            <circle cx="190" cy="592" r="8" fill="#0f172a"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- 4.3 Activity Diagram: Generator Tagihan Massal (Bendahara) -->
+                <div class="diagram-card">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-success-subtle text-success me-2">BAGIAN 4 — UML ACTIVITY DIAGRAM (SKENARIO 3 DARI 5)</span>
+                            <h5 class="fw-bold mb-0 mt-1">4.3. Activity Diagram: Penerbitan &amp; Generator Tagihan Massal (Bendahara &harr; Sistem)</h5>
+                            <small class="text-muted">Proses pembuatan tagihan syahriah bulanan/insidental secara serentak untuk seluruh santri aktif beserta pencegahan duplikasi.</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('svg-act-3', 'Activity_3_Generator_Tagihan')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('svg-act-3', 'Activity_3_Generator_Tagihan')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+                    <div class="diagram-canvas" id="svg-act-3">
+                        <svg viewBox="0 0 1060 560" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" font-family="Plus Jakarta Sans, Arial, sans-serif">
+                            <defs>
+                                <marker id="act3-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b"/>
+                                </marker>
+                            </defs>
+                            <rect x="10" y="10" width="480" height="540" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+                            <rect x="490" y="10" width="560" height="540" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+
+                            <rect x="10" y="10" width="480" height="42" fill="#065f46" stroke="#334155" stroke-width="2"/>
+                            <text x="250" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Bendahara Pondok</text>
+
+                            <rect x="490" y="10" width="560" height="42" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                            <text x="770" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Sistem E-Syahriyah (TagihanController)</text>
+
+                            <circle cx="250" cy="80" r="12" fill="#0f172a"/>
+                            <line x1="250" y1="92" x2="250" y2="118" stroke="#1e293b" stroke-width="2" marker-end="url(#act3-arr)"/>
+
+                            <rect x="85" y="118" width="330" height="48" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="250" y="139" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Buka Menu Generator Tagihan Massal</text>
+                            <text x="250" y="155" text-anchor="middle" font-size="11.5" fill="#047857">&amp; Pilih Jenis Tagihan, Periode, Tingkat (SMP/SMA)</text>
+                            <line x1="250" y1="166" x2="250" y2="198" stroke="#1e293b" stroke-width="2" marker-end="url(#act3-arr)"/>
+
+                            <rect x="85" y="198" width="330" height="46" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="250" y="218" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Tentukan Nominal &amp; Tanggal Jatuh Tempo,</text>
+                            <text x="250" y="234" text-anchor="middle" font-size="11.5" fill="#047857">Lalu Klik "Generate Tagihan Massal"</text>
+                            <line x1="415" y1="221" x2="585" y2="221" stroke="#1e293b" stroke-width="2" marker-end="url(#act3-arr)"/>
+
+                            <rect x="585" y="198" width="370" height="46" rx="18" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+                            <text x="770" y="218" text-anchor="middle" font-weight="700" font-size="12" fill="#1e293b">Query Daftar Santri Berstatus "aktif"</text>
+                            <text x="770" y="234" text-anchor="middle" font-size="11.5" fill="#475569">Sesuai Kriteria Tingkat (Semua / SMP / SMA)</text>
+                            <line x1="770" y1="244" x2="770" y2="275" stroke="#1e293b" stroke-width="2" marker-end="url(#act3-arr)"/>
+
+                            <polygon points="770,275 880,312 770,349 660,312" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                            <text x="770" y="309" text-anchor="middle" font-weight="800" font-size="11.5" fill="#92400e">Tagihan Periode Ini</text>
+                            <text x="770" y="323" text-anchor="middle" font-weight="700" font-size="11" fill="#92400e">Sudah Ada?</text>
+
+                            <line x1="770" y1="349" x2="770" y2="385" stroke="#1e293b" stroke-width="2" marker-end="url(#act3-arr)"/>
+                            <text x="820" y="370" font-size="11" font-weight="700" fill="#065f46">[Belum Ada]</text>
+
+                            <polyline points="880,312 975,312 975,465 880,465" fill="none" stroke="#64748b" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#act3-arr)"/>
+                            <text x="955" y="298" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">[Sudah Ada: Skip]</text>
+
+                            <rect x="585" y="385" width="370" height="48" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="770" y="406" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Insert Record Tabel tagihan (status = belum_bayar)</text>
+                            <text x="770" y="422" text-anchor="middle" font-size="11.5" fill="#047857">&amp; Commit Database Transaction</text>
+                            <line x1="585" y1="409" x2="415" y2="409" stroke="#1e293b" stroke-width="2" marker-end="url(#act3-arr)"/>
+
+                            <rect x="85" y="385" width="330" height="48" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="250" y="406" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Terima Ringkasan Jumlah Tagihan</text>
+                            <text x="250" y="422" text-anchor="middle" font-size="11.5" fill="#047857">Berhasil Dibuat &amp; Jumlah Dilewati</text>
+                            <line x1="250" y1="433" x2="250" y2="485" stroke="#1e293b" stroke-width="2" marker-end="url(#act3-arr)"/>
+
+                            <circle cx="250" cy="502" r="14" fill="#fff" stroke="#0f172a" stroke-width="2.5"/>
+                            <circle cx="250" cy="502" r="8" fill="#0f172a"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- 4.4 Activity Diagram: Pembayaran Kasir Tunai & Kwitansi -->
+                <div class="diagram-card">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-primary-subtle text-primary me-2">BAGIAN 4 — UML ACTIVITY DIAGRAM (SKENARIO 4 DARI 5)</span>
+                            <h5 class="fw-bold mb-0 mt-1">4.4. Activity Diagram: Pembayaran Kasir Tunai &amp; Pengiriman Kwitansi WhatsApp</h5>
+                            <small class="text-muted">Alur penerimaan pembayaran tunai di kantor bendahara hingga penerbitan kwitansi resmi dan pengiriman pesan WA otomatis.</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('svg-act-4', 'Activity_4_Kasir_Tunai')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('svg-act-4', 'Activity_4_Kasir_Tunai')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+                    <div class="diagram-canvas" id="svg-act-4">
+                        <svg viewBox="0 0 1140 540" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" font-family="Plus Jakarta Sans, Arial, sans-serif">
+                            <defs>
+                                <marker id="act4-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b"/>
+                                </marker>
+                            </defs>
+                            <rect x="10" y="10" width="360" height="520" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+                            <rect x="370" y="10" width="410" height="520" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+                            <rect x="780" y="10" width="350" height="520" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+
+                            <rect x="10" y="10" width="360" height="42" fill="#065f46" stroke="#334155" stroke-width="2"/>
+                            <text x="190" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Bendahara Pondok (Kasir)</text>
+
+                            <rect x="370" y="10" width="410" height="42" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                            <text x="575" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Sistem E-Syahriyah</text>
+
+                            <rect x="780" y="10" width="350" height="42" fill="#15803d" stroke="#334155" stroke-width="2"/>
+                            <text x="955" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Fonnte WhatsApp Gateway</text>
+
+                            <circle cx="190" cy="80" r="12" fill="#0f172a"/>
+                            <line x1="190" y1="92" x2="190" y2="120" stroke="#1e293b" stroke-width="2" marker-end="url(#act4-arr)"/>
+
+                            <rect x="45" y="120" width="290" height="48" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="190" y="141" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Cari Santri &amp; Pilih Tagihan Aktif</text>
+                            <text x="190" y="157" text-anchor="middle" font-size="11.5" fill="#047857">di Halaman Kasir Tunai</text>
+                            <line x1="190" y1="168" x2="190" y2="198" stroke="#1e293b" stroke-width="2" marker-end="url(#act4-arr)"/>
+
+                            <rect x="45" y="198" width="290" height="48" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="190" y="219" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Input Nominal Uang Tunai Diterima</text>
+                            <text x="190" y="235" text-anchor="middle" font-size="11.5" fill="#047857">&amp; Klik "Proses Pembayaran Tunai"</text>
+                            <line x1="335" y1="222" x2="425" y2="222" stroke="#1e293b" stroke-width="2" marker-end="url(#act4-arr)"/>
+
+                            <rect x="425" y="195" width="300" height="54" rx="18" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+                            <text x="575" y="217" text-anchor="middle" font-weight="700" font-size="12" fill="#1e293b">Simpan Pembayaran (metode = tunai,</text>
+                            <text x="575" y="235" text-anchor="middle" font-size="11.5" fill="#334155">status = settlement, verified_by)</text>
+                            <line x1="575" y1="249" x2="575" y2="285" stroke="#1e293b" stroke-width="2" marker-end="url(#act4-arr)"/>
+
+                            <rect x="425" y="285" width="300" height="54" rx="18" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+                            <text x="575" y="307" text-anchor="middle" font-weight="700" font-size="12" fill="#166534">Update Tagihan (Lunas/Dicicil) &amp;</text>
+                            <text x="575" y="325" text-anchor="middle" font-size="11.5" fill="#15803d">Buat Nomor Kwitansi (KWT/YYYYMM/...)</text>
+                            <line x1="725" y1="312" x2="815" y2="312" stroke="#1e293b" stroke-width="2" marker-end="url(#act4-arr)"/>
+
+                            <rect x="815" y="285" width="280" height="54" rx="18" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+                            <text x="955" y="307" text-anchor="middle" font-weight="700" font-size="12" fill="#14532d">Kirim Pesan WA Konfirmasi Lunas</text>
+                            <text x="955" y="325" text-anchor="middle" font-size="11.5" fill="#15803d">+ Tautan Kwitansi Resmi ke Wali</text>
+                            <polyline points="955,339 955,395 335,395" fill="none" stroke="#1e293b" stroke-width="2" marker-end="url(#act4-arr)"/>
+
+                            <rect x="45" y="370" width="290" height="50" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="190" y="392" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Tampilkan Halaman Cetak Kwitansi</text>
+                            <text x="190" y="408" text-anchor="middle" font-size="11.5" fill="#047857">&amp; Serahkan Bukti Cetak</text>
+                            <line x1="190" y1="420" x2="190" y2="468" stroke="#1e293b" stroke-width="2" marker-end="url(#act4-arr)"/>
+
+                            <circle cx="190" cy="484" r="14" fill="#fff" stroke="#0f172a" stroke-width="2.5"/>
+                            <circle cx="190" cy="484" r="8" fill="#0f172a"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- 4.5 Activity Diagram: Login & Autentikasi Multi-Role -->
+                <div class="diagram-card">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-secondary-subtle text-secondary me-2">BAGIAN 4 — UML ACTIVITY DIAGRAM (SKENARIO 5 DARI 5)</span>
+                            <h5 class="fw-bold mb-0 mt-1">4.5. Activity Diagram: Autentikasi Login Multi-Role &amp; Pengarahan Dashboard</h5>
+                            <small class="text-muted">Alur validasi kredensial pengguna, pengecekan status aktif akun, pencatatan waktu login, dan redirect sesuai hak akses.</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('svg-act-5', 'Activity_5_Login_MultiRole')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('svg-act-5', 'Activity_5_Login_MultiRole')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+                    <div class="diagram-canvas" id="svg-act-5">
+                        <svg viewBox="0 0 1060 520" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" font-family="Plus Jakarta Sans, Arial, sans-serif">
+                            <defs>
+                                <marker id="act5-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b"/>
+                                </marker>
+                            </defs>
+                            <rect x="10" y="10" width="440" height="500" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+                            <rect x="450" y="10" width="600" height="500" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+
+                            <rect x="10" y="10" width="440" height="42" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                            <text x="230" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Pengguna (Admin / Bendahara / Wali Santri)</text>
+
+                            <rect x="450" y="10" width="600" height="42" fill="#065f46" stroke="#334155" stroke-width="2"/>
+                            <text x="750" y="36" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">Sistem E-Syahriyah (AuthController &amp; RoleMiddleware)</text>
+
+                            <circle cx="230" cy="80" r="12" fill="#0f172a"/>
+                            <line x1="230" y1="92" x2="230" y2="120" stroke="#1e293b" stroke-width="2" marker-end="url(#act5-arr)"/>
+
+                            <rect x="75" y="120" width="310" height="48" rx="18" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+                            <text x="230" y="141" text-anchor="middle" font-weight="700" font-size="12" fill="#1e293b">Buka Halaman Login, Pilih Tab Peran</text>
+                            <text x="230" y="157" text-anchor="middle" font-size="11.5" fill="#475569">&amp; Masukkan Username + Password</text>
+                            <line x1="385" y1="144" x2="595" y2="144" stroke="#1e293b" stroke-width="2" marker-end="url(#act5-arr)"/>
+
+                            <rect x="595" y="120" width="310" height="48" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="750" y="141" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Verifikasi Hash Password (Bcrypt)</text>
+                            <text x="750" y="157" text-anchor="middle" font-size="11.5" fill="#047857">&amp; Cek Status is_active == 1</text>
+                            <line x1="750" y1="168" x2="750" y2="205" stroke="#1e293b" stroke-width="2" marker-end="url(#act5-arr)"/>
+
+                            <polygon points="750,205 855,242 750,279 645,242" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                            <text x="750" y="239" text-anchor="middle" font-weight="800" font-size="11.5" fill="#92400e">Kredensial</text>
+                            <text x="750" y="253" text-anchor="middle" font-weight="700" font-size="11" fill="#92400e">Valid &amp; Aktif?</text>
+
+                            <!-- Invalid -->
+                            <line x1="645" y1="242" x2="385" y2="242" stroke="#dc2626" stroke-width="2" marker-end="url(#act5-arr)"/>
+                            <text x="520" y="233" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">[Tidak Valid]</text>
+                            <rect x="75" y="218" width="310" height="48" rx="18" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+                            <text x="230" y="240" text-anchor="middle" font-weight="700" font-size="12" fill="#991b1b">Tampilkan Pesan Peringatan Error</text>
+                            <text x="230" y="256" text-anchor="middle" font-size="11" fill="#b91c1c">(Username/Password Salah atau Nonaktif)</text>
+                            <line x1="230" y1="218" x2="230" y2="168" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#act5-arr)"/>
+
+                            <!-- Valid -->
+                            <line x1="750" y1="279" x2="750" y2="320" stroke="#1e293b" stroke-width="2" marker-end="url(#act5-arr)"/>
+                            <text x="785" y="303" font-size="11" font-weight="700" fill="#065f46">[Valid]</text>
+
+                            <rect x="575" y="320" width="350" height="52" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                            <text x="750" y="342" text-anchor="middle" font-weight="700" font-size="12" fill="#065f46">Regenerate Session, Update last_login_at,</text>
+                            <text x="750" y="359" text-anchor="middle" font-size="11.5" fill="#047857">Catat ActivityLog &amp; Redirect Sesuai Role</text>
+                            <line x1="575" y1="346" x2="385" y2="346" stroke="#1e293b" stroke-width="2" marker-end="url(#act5-arr)"/>
+
+                            <rect x="75" y="320" width="310" height="52" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="230" y="342" text-anchor="middle" font-weight="700" font-size="12" fill="#0c4a6e">Masuk ke Halaman Dashboard</text>
+                            <text x="230" y="359" text-anchor="middle" font-size="11.5" fill="#0369a1">(Admin / Bendahara / Wali Santri)</text>
+                            <line x1="230" y1="372" x2="230" y2="435" stroke="#1e293b" stroke-width="2" marker-end="url(#act5-arr)"/>
+
+                            <circle cx="230" cy="452" r="14" fill="#fff" stroke="#0f172a" stroke-width="2.5"/>
+                            <circle cx="230" cy="452" r="8" fill="#0f172a"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================================================== -->
+            <!-- 5. UML SEQUENCE DIAGRAM (4 SKENARIO UTAMA)                          -->
+            <!-- =================================================================== -->
+            <div class="tab-pane fade" id="pane-sequence" role="tabpanel">
+
+                <!-- Sequence 5.1: Pembayaran Online Midtrans & Webhook -->
+                <div class="diagram-card page-break-before">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-danger-subtle text-danger me-2">BAGIAN 5 — UML SEQUENCE DIAGRAM (SKENARIO 1 DARI 4)</span>
+                            <h5 class="fw-bold mb-0 mt-1">5.1. Sequence Diagram: Pembayaran Online Midtrans Snap, Webhook &amp; Notifikasi WhatsApp</h5>
+                            <small class="text-muted">Interaksi objek secara kronologis antara Aktor Wali Santri, Controller, Service, Database, Midtrans API, dan Fonnte API.</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('mermaid-seq-midtrans', 'Sequence_1_Pembayaran_Midtrans')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('mermaid-seq-midtrans', 'Sequence_1_Pembayaran_Midtrans')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+                    <div class="diagram-canvas" id="mermaid-seq-midtrans">
+                        <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor Wali as Wali Santri
+    participant View as View: dashboard / show.blade.php
+    participant PC as PembayaranController
+    participant MS as MidtransService
+    participant Midtrans as Midtrans Snap API
+    participant WC as WebhookController
+    participant DB as Models: Tagihan, Pembayaran, Kwitansi
+    participant WA as WhatsAppService (Fonnte)
+
+    Wali->>View: Klik Bayar dan Pilih Nominal (Penuh / Cicilan)
+    View->>PC: POST /wali/tagihan/{id}/pay (nominal_bayar)
+    PC->>DB: findOrFail(id_tagihan) dan Validasi Sisa Tagihan
+    PC->>DB: Pembayaran::create(order_id, jumlah_bayar, status='pending')
+    PC->>MS: createSnapToken(pembayaran, tagihan, santri)
+    MS->>Midtrans: Request Snap Token (Server Key Auth)
+    Midtrans-->>MS: Return snap_token
+    MS-->>PC: Return snap_token
+    PC-->>View: JSON { snap_token, id_pembayaran }
+    View->>Midtrans: window.snap.pay(snap_token)
+    Wali->>Midtrans: Bayar via QRIS / Virtual Account Bank
+    Midtrans->>WC: POST /midtrans/webhook (JSON Payload + signature_key)
+    WC->>WC: Validasi SHA-512 Signature Key
+    WC->>DB: Update Pembayaran (status_transaksi = 'settlement')
+    WC->>DB: Update Tagihan (total_terbayar, sisa_tagihan, status = 'lunas'/'dicicil')
+    WC->>DB: Kwitansi::firstOrCreate(no_kwitansi = 'KWT/YYYYMM/XXXX')
+    WC->>WA: sendPaymentConfirmation(pembayaran)
+    WA-->>Wali: Pesan WhatsApp Bukti Lunas + Link Cetak Kwitansi
+    WC-->>Midtrans: HTTP 200 OK
+                        </pre>
+                    </div>
+                </div>
+
+                <!-- Sequence 5.2: Pengajuan Penundaan & Alasan Tunggakan -->
+                <div class="diagram-card">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-warning-subtle text-warning-emphasis me-2">BAGIAN 5 — UML SEQUENCE DIAGRAM (SKENARIO 2 DARI 4)</span>
+                            <h5 class="fw-bold mb-0 mt-1">5.2. Sequence Diagram: Pengajuan Penundaan (Wali Santri) &amp; Rekapan Tunggakan (Bendahara)</h5>
+                            <small class="text-muted">Urutan pemanggilan method saat Wali Santri mengajukan alasan keterlambatan bayar hingga ditanggapi oleh Bendahara Pondok.</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('mermaid-seq-penundaan', 'Sequence_2_Ajukan_Penundaan_Tunggakan')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('mermaid-seq-penundaan', 'Sequence_2_Ajukan_Penundaan_Tunggakan')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+                    <div class="diagram-canvas" id="mermaid-seq-penundaan">
+                        <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor Wali as Wali Santri
+    participant ModalWali as View: modal-penundaan.blade.php
+    participant DC as DashboardController
+    participant Tagihan as Model: Tagihan
+    participant Log as Model: ActivityLog
+    actor Bendahara as Bendahara Pondok
+    participant LC as LaporanController
+    participant TC as TagihanController
+
+    Wali->>ModalWali: Klik Ajukan Penundaan, Pilih Kategori, Tanggal Janji dan Alasan
+    ModalWali->>DC: POST /wali/tagihan/{id}/ajukan-penundaan
+    DC->>Tagihan: Validasi Kepemilikan NIS Santri dan Status != lunas
+    DC->>Tagihan: update(kategori_tunggakan, alasan_tunggakan, tgl_janji_bayar, updated_alasan_at)
+    DC->>Log: ActivityLog::record('WALI_PENUNDAAN', ...)
+    DC-->>Wali: Redirect Back + Flash Success Message
+
+    Bendahara->>LC: GET /bendahara/laporan/tunggakan (Filter Kategori / Pencarian)
+    LC->>Tagihan: Query Tagihan Belum Lunas + Eager Load Santri, Wali, JenisTagihan
+    Tagihan-->>LC: Return Koleksi Tunggakan dan Ringkasan per Kategori
+    LC-->>Bendahara: Render Tabel Rekapan Tunggakan dan Alasan Wali
+
+    Bendahara->>TC: POST /bendahara/tagihan/{id}/update-alasan (catatan_bendahara)
+    TC->>Tagihan: update(kategori_tunggakan, alasan_tunggakan, tgl_janji_bayar, catatan_bendahara)
+    TC->>Log: ActivityLog::record('TAGIHAN_NOTE', ...)
+    TC-->>Bendahara: JSON Response { success: true, data: ... }
+    Tagihan-->>Wali: Tampilkan Kotak Tanggapan Bendahara di Portal Wali Santri
+                        </pre>
+                    </div>
+                </div>
+
+                <!-- Sequence 5.3: Pembayaran Kasir Tunai Bendahara -->
+                <div class="diagram-card">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-primary-subtle text-primary me-2">BAGIAN 5 — UML SEQUENCE DIAGRAM (SKENARIO 3 DARI 4)</span>
+                            <h5 class="fw-bold mb-0 mt-1">5.3. Sequence Diagram: Pembayaran Kasir Tunai Bendahara &amp; Penerbitan Kwitansi</h5>
+                            <small class="text-muted">Urutan interaksi komponen saat Bendahara menerima pembayaran tunai langsung di kantor administrasi pondok.</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('mermaid-seq-kasir', 'Sequence_3_Kasir_Tunai')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('mermaid-seq-kasir', 'Sequence_3_Kasir_Tunai')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+                    <div class="diagram-canvas" id="mermaid-seq-kasir">
+                        <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor Bendahara as Bendahara Pondok
+    participant View as View: kasir.blade.php
+    participant PC as PembayaranController
+    participant DB as Models: Tagihan, Pembayaran, Kwitansi
+    participant WA as WhatsAppService (Fonnte)
+    participant KWT as KwitansiController
+
+    Bendahara->>View: Cari Santri dan Pilih Tagihan Belum Lunas
+    Bendahara->>View: Input Nominal Tunai dan Klik Proses Pembayaran
+    View->>PC: POST /bendahara/pembayaran/kasir-tunai
+    PC->>DB: DB::beginTransaction()
+    PC->>DB: Pembayaran::create(metode='tunai', status='settlement', verified_by)
+    PC->>DB: Update Tagihan (total_terbayar, sisa_tagihan, status='lunas'/'dicicil')
+    PC->>DB: Kwitansi::create(no_kwitansi = 'KWT/YYYYMM/XXXX')
+    PC->>DB: DB::commit() dan ActivityLog::record('KASIR_TUNAI')
+    PC->>WA: sendPaymentConfirmation(pembayaran)
+    WA-->>Bendahara: Status Pengiriman WA ke Wali Santri
+    PC-->>KWT: Redirect ke /kwitansi/{id_pembayaran}
+    KWT-->>Bendahara: Tampilkan Kwitansi Resmi Siap Cetak
+                        </pre>
+                    </div>
+                </div>
+
+                <!-- Sequence 5.4: Laporan Keuangan & Export Excel / CSV / Cetak PDF -->
+                <div class="diagram-card">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-success-subtle text-success me-2">BAGIAN 5 — UML SEQUENCE DIAGRAM (SKENARIO 4 DARI 4)</span>
+                            <h5 class="fw-bold mb-0 mt-1">5.4. Sequence Diagram: Filter Real-Time AJAX, Cetak PDF &amp; Export Excel/CSV Laporan Bendahara</h5>
+                            <small class="text-muted">Alur pengambilan data laporan pemasukan dan tunggakan beserta sinkronisasi parameter filter ke file Excel (.xls), CSV, dan Cetak Resmi.</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('mermaid-seq-laporan', 'Sequence_4_Laporan_dan_Export')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('mermaid-seq-laporan', 'Sequence_4_Laporan_dan_Export')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+                    <div class="diagram-canvas" id="mermaid-seq-laporan">
+                        <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor Bendahara as Bendahara Pondok
+    participant View as View: tunggakan / pemasukan.blade.php
+    participant LC as LaporanController
+    participant DB as Models: Tagihan dan Pembayaran
+    participant ExportView as Blade: export_excel / cetak.blade.php
+
+    Bendahara->>View: Pilih Filter (Tingkat, Program, Jenis Tagihan, Kategori Alasan, Keyword)
+    View->>View: syncExportUrls() (Update Query String pada Tombol Excel, CSV dan PDF)
+    View->>LC: AJAX GET /bendahara/laporan/tunggakan
+    LC->>DB: buildTunggakanQuery(request)->get()
+    DB-->>LC: Data Terfilter + Total Akumulasi Piutang
+    LC-->>View: Update Tabel DOM Secara Instan
+
+    alt Klik Tombol Export Excel (.xls)
+        Bendahara->>LC: GET /bendahara/laporan/tunggakan/export-excel
+        LC->>DB: buildTunggakanQuery(request)->get()
+        LC->>ExportView: Render Tabel Spreadsheet Resmi (.xls)
+        ExportView-->>Bendahara: Download File Rekapan_Tunggakan_Santri.xls
+    else Klik Tombol Export CSV (.csv)
+        Bendahara->>LC: GET /bendahara/laporan/tunggakan/export-csv
+        LC->>DB: buildTunggakanQuery(request)->get()
+        LC-->>Bendahara: StreamedResponse CSV (UTF-8 BOM + sep=,)
+    else Klik Tombol Cetak / PDF Resmi
+        Bendahara->>LC: GET /bendahara/laporan/tunggakan/cetak
+        LC->>ExportView: Render Dokumen Kop Surat Pondok + Logo Resmi
+        ExportView-->>Bendahara: Tampilkan Pratinjau Cetak Kertas A4
+    end
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================================================== -->
+            <!-- 6. UML CLASS DIAGRAM (ARSITEKTUR MVC LARAVEL)                       -->
+            <!-- =================================================================== -->
+            <div class="tab-pane fade" id="pane-class" role="tabpanel">
+                <div class="diagram-card page-break-before">
+                    <div class="diagram-card-header">
+                        <div>
+                            <span class="diagram-badge bg-dark-subtle text-dark me-2">BAGIAN 6 — UML CLASS DIAGRAM</span>
+                            <h5 class="fw-bold mb-0 mt-1">6.1. Class Diagram Arsitektur Sistem E-Syahriyah (Models, Controllers &amp; Services)</h5>
+                            <small class="text-muted">Memvisualisasikan struktur kelas beserta properti, method utama, dan relasi asosiasi/dependensi pada aplikasi Laravel.</small>
+                        </div>
+                        <div class="btn-action-group d-flex gap-2 no-print">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportDiagramSVG('mermaid-class-main', 'Class_Diagram_MVC_ESyahriyah')">
+                                <i class="bi bi-filetype-svg me-1"></i> Unduh SVG
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="exportDiagramPNG('mermaid-class-main', 'Class_Diagram_MVC_ESyahriyah')">
+                                <i class="bi bi-image me-1"></i> Unduh PNG
+                            </button>
+                        </div>
+                    </div>
+                    <div class="diagram-canvas" id="mermaid-class-main">
+                        <pre class="mermaid">
+classDiagram
+    direction TB
+
+    class User {
+        +int id_user
+        +string username
+        +string password
+        +string nama_lengkap
+        +string no_telp
+        +string role
+        +bool is_active
+        +santri() HasMany
+        +isAdmin() bool
+        +isBendahara() bool
+        +isWali() bool
+    }
+
+    class Santri {
+        +string nis
+        +string nisn
+        +string nama_santri
+        +string tingkat
+        +string kelas
+        +string jenis_kelamin
+        +date tgl_lahir
+        +string id_program
+        +int id_wali
+        +string status_aktif
+        +program() BelongsTo
+        +wali() BelongsTo
+        +tagihan() HasMany
+        +getKepatuhanInfo() array
+    }
+
+    class Program {
+        +string id_program
+        +string nama_program
+        +string keterangan
+        +santri() HasMany
+    }
+
+    class TahunAjaran {
+        +int id_tahun_ajaran
+        +string nama_tahun_ajaran
+        +string semester
+        +bool is_aktif
+        +getAktif() TahunAjaran
+    }
+
+    class JenisTagihan {
+        +int id_jenis_tagihan
+        +string nama_tagihan
+        +string tipe
+        +decimal nominal_standar
+        +tagihan() HasMany
+    }
+
+    class Tagihan {
+        +int id_tagihan
+        +string nis
+        +int id_jenis_tagihan
+        +string tahun_ajaran
+        +int bulan
+        +decimal nominal_tagihan
+        +decimal total_terbayar
+        +decimal sisa_tagihan
+        +date jatuh_tempo
+        +string status_tagihan
+        +string kategori_tunggakan
+        +string alasan_tunggakan
+        +date tgl_janji_bayar
+        +string catatan_bendahara
+        +datetime updated_alasan_at
+        +santri() BelongsTo
+        +jenisTagihan() BelongsTo
+        +pembayaran() HasMany
+        +getKategoriBadgeAttribute() string
+        +getAlasanLengkapAttribute() string
+    }
+
+    class Pembayaran {
+        +int id_pembayaran
+        +string order_id
+        +int id_tagihan
+        +datetime tgl_bayar
+        +decimal jumlah_bayar
+        +decimal biaya_admin
+        +decimal total_bayar
+        +string metode_bayar
+        +string channel_bayar
+        +string snap_token
+        +string status_transaksi
+        +int verified_by
+        +tagihan() BelongsTo
+        +kwitansi() HasOne
+        +verifier() BelongsTo
+        +getKwitansiToken() string
+    }
+
+    class Kwitansi {
+        +int id_kwitansi
+        +string no_kwitansi
+        +int id_pembayaran
+        +datetime tgl_terbit
+        +pembayaran() BelongsTo
+    }
+
+    class NotifikasiWa {
+        +int id_notifikasi
+        +string nis
+        +string no_tujuan
+        +string jenis_pesan
+        +string status_kirim
+        +santri() BelongsTo
+    }
+
+    class Pengaturan {
+        +string setting_key
+        +string setting_value
+        +get(key) mixed
+        +set(key, val) void
+    }
+
+    class ActivityLog {
+        +int id
+        +int user_id
+        +string action
+        +string description
+        +record(action, desc) void
+    }
+
+    class DashboardController {
+        +bendahara() View
+        +wali() View
+        +waliSantriDetail(nis) View
+        +waliRiwayat(request) View
+        +ajukanPenundaanWali(request, id) Response
+    }
+
+    class TagihanController {
+        +index(request) View
+        +store(request) RedirectResponse
+        +generateMassal(request) RedirectResponse
+        +updateAlasan(request, id) JsonResponse
+        +kirimReminderWa(id) RedirectResponse
+    }
+
+    class PembayaranController {
+        +index(request) View
+        +rekonsiliasi(request) View
+        +storeKasirTunai(request) RedirectResponse
+        +getSnapToken(request, id) JsonResponse
+        +syncStatus(id) RedirectResponse
+    }
+
+    class LaporanController {
+        +pemasukan(request) View
+        +tunggakan(request) View
+        +exportPemasukanExcel(request) Response
+        +exportTunggakanExcel(request) Response
+        +exportPemasukanCsv(request) StreamedResponse
+        +exportTunggakanCsv(request) StreamedResponse
+        +cetakPemasukan(request) View
+        +cetakTunggakan(request) View
+    }
+
+    class MidtransService {
+        +createSnapToken(pembayaran) array
+        +checkTransactionStatus(orderId) array
+    }
+
+    class WhatsAppService {
+        +sendMessage(target, msg) array
+        +sendPaymentConfirmation(pembayaran) array
+        +sendPaymentReminder(tagihan) array
+    }
+
+    User "1" --> "0..*" Santri : wali
+    Program "1" --> "0..*" Santri : program
+    Santri "1" --> "0..*" Tagihan : memiliki
+    JenisTagihan "1" --> "0..*" Tagihan : komponen
+    Tagihan "1" --> "0..*" Pembayaran : cicilan_pelunasan
+    Pembayaran "1" --> "0..1" Kwitansi : bukti_sah
+    Santri "1" --> "0..*" NotifikasiWa : log_wa
+    User "1" --> "0..*" ActivityLog : audit
+
+    DashboardController ..> Tagihan : uses
+    DashboardController ..> Santri : uses
+    TagihanController ..> Tagihan : manages
+    TagihanController ..> WhatsAppService : uses
+    PembayaranController ..> Pembayaran : manages
+    PembayaranController ..> MidtransService : uses
+    PembayaranController ..> WhatsAppService : uses
+    LaporanController ..> Tagihan : queries
+    LaporanController ..> Pembayaran : queries
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            fontFamily: 'Plus Jakarta Sans, sans-serif',
+            sequence: {
+                useMaxWidth: true,
+                showSequenceNumbers: true,
+                actorMargin: 45,
+                messageMargin: 35
+            },
+            er: {
+                useMaxWidth: true,
+                layoutDirection: 'TB'
+            }
+        });
+    </script>
+
+    <script>
+        function enableShowAll() {
+            document.body.classList.add('show-all-mode');
+            const btn = document.getElementById('btnToggleViewMode');
+            if (btn) btn.innerHTML = '<i class="bi bi-layers-half me-1"></i> Mode: Tampilkan Semua';
+        }
+
+        function disableShowAll(targetSelector) {
+            document.body.classList.remove('show-all-mode');
+            const btn = document.getElementById('btnToggleViewMode');
+            if (btn) btn.innerHTML = '<i class="bi bi-layers me-1"></i> Mode: Per Tab';
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
+            const target = document.querySelector(targetSelector);
+            if (target) target.classList.add('show', 'active');
+        }
+
+        function toggleShowAllMode() {
+            if (document.body.classList.contains('show-all-mode')) {
+                disableShowAll('#pane-flowchart');
+            } else {
+                enableShowAll();
+            }
+        }
+
+        // Vector Print / Save as PDF (Recommended for Crisp Vector Quality)
+        function printVectorPDF() {
+            enableShowAll();
+            setTimeout(() => {
+                window.print();
+            }, 250);
+        }
+
+        // Direct .pdf file download via html2pdf.js
+        function downloadDirectPDF() {
+            enableShowAll();
+            const btn = document.getElementById('btnDirectPdf');
+            const originalHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Menyiapkan PDF...';
+
+            const element = document.getElementById('printableDocumentArea');
+            const opt = {
+                margin:       [8, 8, 8, 8],
+                filename:     'Dokumentasi_ERD_Flowchart_UML_ESyahriyah_Darul_Muttaqin.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false, scrollY: 0 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+            }).catch(() => {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+                printVectorPDF();
+            });
+        }
+
+        // Download individual diagram as SVG
+        function exportDiagramSVG(containerId, fileName) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const svgEl = container.querySelector('svg');
+            if (!svgEl) {
+                alert('Diagram masih sedang dimuat, silakan tunggu sebentar.');
+                return;
+            }
+            const serializer = new XMLSerializer();
+            let source = serializer.serializeToString(svgEl);
+            if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+                source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+            }
+            source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+            const url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = fileName + ".svg";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Download individual diagram as High-Res PNG
+        function exportDiagramPNG(containerId, fileName) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const svgEl = container.querySelector('svg');
+            if (!svgEl) {
+                alert('Diagram masih sedang dimuat, silakan tunggu sebentar.');
+                return;
+            }
+
+            const bbox = svgEl.getBoundingClientRect();
+            const width = Math.max(bbox.width, 1200);
+            const height = Math.max(bbox.height, 600);
+            const scale = 2;
+
+            const clonedSvg = svgEl.cloneNode(true);
+            clonedSvg.setAttribute('width', width);
+            clonedSvg.setAttribute('height', height);
+
+            const serializer = new XMLSerializer();
+            let svgString = serializer.serializeToString(clonedSvg);
+            if (!svgString.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+                svgString = svgString.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+            }
+
+            const img = new Image();
+            const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(svgBlob);
+
+            img.onload = function () {
+                const canvas = document.createElement('canvas');
+                canvas.width = width * scale;
+                canvas.height = height * scale;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.scale(scale, scale);
+                ctx.drawImage(img, 0, 0, width, height);
+                URL.revokeObjectURL(url);
+
+                const pngUrl = canvas.toDataURL('image/png');
+                const downloadLink = document.createElement('a');
+                downloadLink.href = pngUrl;
+                downloadLink.download = fileName + '.png';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            };
+            img.src = url;
+        }
+    </script>
+</body>
+</html>
