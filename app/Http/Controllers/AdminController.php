@@ -141,9 +141,9 @@ class AdminController extends Controller
     {
         $midtransSettings = [
             'mode' => Pengaturan::get('midtrans_mode', config('services.midtrans.is_production') ? 'production' : 'sandbox'),
-            'server_key' => Pengaturan::get('midtrans_server_key', config('services.midtrans.server_key', env('MIDTRANS_SERVER_KEY', ''))),
-            'client_key' => Pengaturan::get('midtrans_client_key', config('services.midtrans.client_key', env('MIDTRANS_CLIENT_KEY', ''))),
-            'merchant_id' => Pengaturan::get('midtrans_merchant_id', env('MIDTRANS_MERCHANT_ID', '')),
+            'server_key' => Pengaturan::get('midtrans_server_key', config('services.midtrans.server_key', '')),
+            'client_key' => Pengaturan::get('midtrans_client_key', config('services.midtrans.client_key', '')),
+            'merchant_id' => Pengaturan::get('midtrans_merchant_id', config('services.midtrans.merchant_id', '')),
             'biaya_admin' => (int) Pengaturan::get('midtrans_biaya_admin', 2500),
             'is_sanitized' => (bool) Pengaturan::get('midtrans_is_sanitized', config('services.midtrans.is_sanitized', true)),
             'is_3ds' => (bool) Pengaturan::get('midtrans_is_3ds', config('services.midtrans.is_3ds', true)),
@@ -400,9 +400,9 @@ class AdminController extends Controller
     {
         $deviceInfo = $waService->checkDeviceStatus();
 
-        $token = Pengaturan::get('fonnte_token', env('FONNTE_TOKEN', ''));
-        $waEnabled = (bool) Pengaturan::get('wa_notif_enabled', env('WA_NOTIF_ENABLED', true));
-        $senderNumber = Pengaturan::get('wa_sender_number', env('WA_SENDER_NUMBER', ''));
+        $token = Pengaturan::get('fonnte_token', config('services.fonnte.token', ''));
+        $waEnabled = (bool) Pengaturan::get('wa_notif_enabled', config('services.fonnte.enabled', true));
+        $senderNumber = Pengaturan::get('wa_sender_number', config('services.fonnte.sender', ''));
 
         $stats = [
             'total_notif' => \App\Models\NotifikasiWa::count(),

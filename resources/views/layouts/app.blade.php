@@ -362,9 +362,42 @@
         /* Menu dropdown tidak melebihi lebar layar */
         .dropdown-menu { max-width: calc(100vw - 1.5rem); }
 
+        /* Semua ukuran layar (termasuk laptop 1366x768 dengan tinggi viewport ~600px):
+           Modal selalu muat di dalam layar dan isi modal dapat di-scroll dengan mulus */
+        .modal-dialog:not(.modal-fullscreen) .modal-content {
+            max-height: calc(100vh - 2rem);
+            max-height: calc(100dvh - 2rem);
+        }
+        .modal-body {
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+        }
+
         /* Baris "label ... nilai": nilai panjang tidak mendorong keluar layar */
         .d-flex.justify-content-between > * { min-width: 0; }
         .list-group-item.d-flex { gap: 0.25rem 0.5rem; }
+
+        /* Laptop layar lebar menengah (1366x768, 1280x800, 1280x720):
+           Optimasi lebar sidebar & kepadatan tabel agar semua kolom tampil lega tanpa terpotong */
+        @media (min-width: 992px) and (max-width: 1399.98px) {
+            :root { --sidebar-width: 244px; }
+            .main-content { padding: 1.25rem 1.5rem; }
+            .topbar { padding: 0.75rem 1.5rem; }
+            .table > :not(caption) > * > * { padding: 0.65rem 0.75rem; font-size: 0.86rem; }
+            .card-stat .p-4 { padding: 1.15rem !important; }
+        }
+
+        /* Laptop tinggi layar <= 800px (khususnya 1366x768 / 1280x720 dengan tinggi viewport ~600-650px):
+           Padatkan jarak vertikal menu sidebar agar seluruh menu terlihat nyaman */
+        @media (min-width: 992px) and (max-height: 800px) {
+            .sidebar-brand { padding: 0.85rem 1.15rem; }
+            .sidebar-nav { padding: 0.6rem 0.75rem; }
+            .sidebar-nav .nav-header { padding: 0.5rem 0.75rem 0.25rem; font-size: 0.64rem; }
+            .sidebar-nav .nav-link { padding: 0.5rem 0.85rem; font-size: 0.85rem; margin-bottom: 1px; }
+            .sidebar-user { padding: 0.65rem 0.85rem; }
+            .topbar { padding-top: 0.65rem; padding-bottom: 0.65rem; }
+        }
 
         /* Sticky kolom pertama? Tidak. Tapi judul tabel jangan patah di layar kecil */
         @media (max-width: 991.98px) {

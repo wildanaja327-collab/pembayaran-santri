@@ -17,8 +17,8 @@ class WhatsAppService
 
     public function __construct()
     {
-        $this->token = Pengaturan::get('fonnte_token', env('FONNTE_TOKEN', ''));
-        $this->enabled = (bool) Pengaturan::get('wa_notif_enabled', env('WA_NOTIF_ENABLED', true));
+        $this->token = Pengaturan::get('fonnte_token', config('services.fonnte.token', ''));
+        $this->enabled = (bool) Pengaturan::get('wa_notif_enabled', config('services.fonnte.enabled', true));
     }
 
     /**

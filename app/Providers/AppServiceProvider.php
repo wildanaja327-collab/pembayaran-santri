@@ -21,12 +21,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Gunakan komponen Pagination Bootstrap 5 di seluruh halaman
+        \Illuminate\Pagination\Paginator::useBootstrapFive();
+
         // Konfigurasi Zona Waktu Indonesia Barat (WIB) & Bahasa Carbon
         date_default_timezone_set(config('app.timezone', 'Asia/Jakarta'));
         \Illuminate\Support\Carbon::setLocale('id');
 
-        // Otomatis paksa skema HTTPS jika request berasal dari Ngrok atau proxy HTTPS
-        if (request()->header('x-forwarded-proto') === 'https' || (request()->hasHeader('host') && str_contains(request()->getHost(), 'ngrok'))) {
+        // Otomatis paksa skema HTTPS jika diakses melalui koneksi aman / reverse proxy / domain HTTPS hosting
+        if (
+            request()->isSecure() ||
+            request()->header('x-forwarded-proto') === 'https' ||
+            str_starts_with((string) config('app.url'), 'https://') ||
+            (request()->hasHeader('host') && str_contains(request()->getHost(), 'ngrok'))
+        ) {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
 

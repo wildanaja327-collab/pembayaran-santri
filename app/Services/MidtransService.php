@@ -21,7 +21,7 @@ class MidtransService
         $mode = Pengaturan::get('midtrans_mode', config('services.midtrans.is_production') ? 'production' : 'sandbox');
         $isProduction = ($mode === 'production');
 
-        $serverKey = Pengaturan::get('midtrans_server_key') ?: config('services.midtrans.server_key', env('MIDTRANS_SERVER_KEY', 'SB-Mid-server-YOUR_SERVER_KEY'));
+        $serverKey = Pengaturan::get('midtrans_server_key') ?: config('services.midtrans.server_key', 'SB-Mid-server-YOUR_SERVER_KEY');
         $isSanitized = (bool) Pengaturan::get('midtrans_is_sanitized', config('services.midtrans.is_sanitized', true));
         $is3ds = (bool) Pengaturan::get('midtrans_is_3ds', config('services.midtrans.is_3ds', true));
 
@@ -195,15 +195,24 @@ class MidtransService
             }
         }
 
-        if (!$signatureValid && !empty($signatureKey)) {
-            $expectedAmount = (float) $pembayaran->total_bayar;
-            $receivedAmount = (float) $grossAmount;
-            if (abs($expectedAmount - $receivedAmount) > 1.0) {
-                Log::error("Midtrans Webhook: Signature mismatch & nominal tidak cocok! Order: {$orderId}, Expected: {$expectedAmount}, Received: {$receivedAmount}");
-                ActivityLog::record('MIDTRANS_WEBHOOK_REJECTED', "Notifikasi webhook ditolak: Nominal mismatch untuk Order ID: {$orderId}");
-                return ['status' => 'error', 'message' => 'Invalid signature or amount mismatch'];
+        if (!$signatureValid) {
+            // Pada mode Production, wajib memiliki signature_key resmi Midtrans yang valid
+            if (Config::$isProduction) {
+                Log::error("Midtrans Production Webhook Rejected: Invalid or missing signature_key for Order: {$orderId}");
+                ActivityLog::record('MIDTRANS_WEBHOOK_REJECTED', "Webhook Production ditolak: Signature key tidak valid untuk Order ID: {$orderId}");
+                return ['status' => 'error', 'message' => 'Invalid signature key'];
             }
-            Log::info("Midtrans Webhook: Signature verification disesuaikan untuk Order ID: {$orderId} (Valid order & amount match: Rp {$receivedAmount})");
+
+            if (!empty($signatureKey)) {
+                $expectedAmount = (float) $pembayaran->total_bayar;
+                $receivedAmount = (float) $grossAmount;
+                if (abs($expectedAmount - $receivedAmount) > 1.0) {
+                    Log::error("Midtrans Webhook: Signature mismatch & nominal tidak cocok! Order: {$orderId}, Expected: {$expectedAmount}, Received: {$receivedAmount}");
+                    ActivityLog::record('MIDTRANS_WEBHOOK_REJECTED', "Notifikasi webhook ditolak: Nominal mismatch untuk Order ID: {$orderId}");
+                    return ['status' => 'error', 'message' => 'Invalid signature or amount mismatch'];
+                }
+                Log::info("Midtrans Webhook: Signature verification disesuaikan untuk Order ID: {$orderId} (Valid order & amount match: Rp {$receivedAmount})");
+            }
         }
 
         ActivityLog::record('MIDTRANS_WEBHOOK', "Webhook diterima: Order {$orderId}, Status: {$transactionStatus}, Channel: " . ($paymentType ?? '-'));

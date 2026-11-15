@@ -25,7 +25,24 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->respond(function (\Symfony\Component\HttpFoundation\Response $response) {
             if ($response->getStatusCode() === 419) {
+                if (request()->expectsJson() || request()->ajax()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Sesi keamanan halaman telah kedaluwarsa. Silakan muat ulang halaman dan coba kembali.',
+                    ], 419);
+                }
                 return redirect()->route('login')->with('info', 'Sesi form Anda telah kedaluwarsa. Silakan masukkan kembali akun Anda.');
+            }
+            if ($response->getStatusCode() === 429) {
+                if (request()->expectsJson() || request()->ajax()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Terlalu banyak percobaan dalam waktu singkat. Silakan tunggu 1 menit sebelum mencoba kembali.',
+                    ], 429);
+                }
+                return back()->withErrors([
+                    'username' => 'Terlalu banyak percobaan masuk. Silakan tunggu 1 menit sebelum mencoba kembali.',
+                ]);
             }
             return $response;
         });

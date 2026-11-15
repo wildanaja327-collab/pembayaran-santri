@@ -20,9 +20,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Autentikasi
+// Autentikasi (Dilindungi Rate Limiting 10 percobaan per menit terhadap Brute-Force)
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1')->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Webhook Midtrans (Bypass CSRF)

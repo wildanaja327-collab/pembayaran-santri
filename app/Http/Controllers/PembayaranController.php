@@ -266,10 +266,15 @@ class PembayaranController extends Controller
     }
 
     /**
-     * Simulator Instant Settlement (Untuk Keperluan Demo Sidang Skripsi di Localhost)
+     * Simulator Instant Settlement (Khusus Mode Sandbox / Uji Coba)
      */
     public function simulateSettlement($id_pembayaran)
     {
+        $isProduction = (\App\Models\Pengaturan::get('midtrans_mode', config('services.midtrans.is_production') ? 'production' : 'sandbox') === 'production');
+        if ($isProduction) {
+            return back()->with('error', 'Fitur simulasi pembayaran dinonaktifkan pada mode Production.');
+        }
+
         $pembayaran = Pembayaran::with('tagihan')->findOrFail($id_pembayaran);
 
         $this->midtransService->updatePaymentStatus(
@@ -306,14 +311,27 @@ class PembayaranController extends Controller
             ]);
         }
 
-        // Jika frontend mengirimkan payload resmi dari Midtrans Snap callback (onSuccess / onPending)
+        // 1. Utamakan verifikasi langsung ke API Server Midtrans menggunakan Server Key resmi
+        $res = $this->midtransService->syncTransactionStatus($pembayaran);
+        if (($res['status'] ?? '') !== 'error') {
+            $fresh = $pembayaran->fresh();
+            return response()->json([
+                'success' => true,
+                'status' => $fresh->status_transaksi,
+                'message' => $res['message'] ?? 'Status berhasil diperbarui dari server Midtrans.',
+                'is_settlement' => in_array($fresh->status_transaksi, ['capture', 'settlement']),
+            ]);
+        }
+
+        // 2. Fallback payload Snap hanya diizinkan pada Mode Sandbox (tidak pernah pada Mode Production)
+        $isProduction = (\App\Models\Pengaturan::get('midtrans_mode', config('services.midtrans.is_production') ? 'production' : 'sandbox') === 'production');
         $snapStatus = $request->input('transaction_status');
         $snapOrderId = $request->input('order_id');
         $snapPaymentType = $request->input('payment_type');
         $snapVa = $request->input('va_numbers.0.va_number');
 
-        if ($snapStatus && $snapOrderId === $pembayaran->order_id) {
-            $res = $this->midtransService->updatePaymentStatus(
+        if (!$isProduction && $snapStatus && $snapOrderId === $pembayaran->order_id) {
+            $this->midtransService->updatePaymentStatus(
                 $pembayaran,
                 $snapStatus,
                 $snapPaymentType,
@@ -324,12 +342,10 @@ class PembayaranController extends Controller
             return response()->json([
                 'success' => true,
                 'status' => $snapStatus,
-                'message' => 'Status pembayaran berhasil disinkronkan dari Midtrans.',
+                'message' => 'Status pembayaran berhasil disinkronkan dari Midtrans Sandbox.',
                 'is_settlement' => in_array($pembayaran->fresh()->status_transaksi, ['capture', 'settlement']),
             ]);
         }
-
-        $res = $this->midtransService->syncTransactionStatus($pembayaran);
 
         return response()->json([
             'success' => true,
@@ -340,10 +356,15 @@ class PembayaranController extends Controller
     }
 
     /**
-     * Simulator Instant Settlement untuk Wali Santri (Demo Sidang Skripsi Localhost)
+     * Simulator Instant Settlement untuk Wali Santri (Khusus Mode Sandbox)
      */
     public function simulateSettlementWali(Request $request, $id_pembayaran)
     {
+        $isProduction = (\App\Models\Pengaturan::get('midtrans_mode', config('services.midtrans.is_production') ? 'production' : 'sandbox') === 'production');
+        if ($isProduction) {
+            return response()->json(['error' => 'Fitur simulasi pembayaran tidak tersedia pada mode Production.'], 403);
+        }
+
         $pembayaran = Pembayaran::with('tagihan.santri')->findOrFail($id_pembayaran);
 
         if ($pembayaran->tagihan->santri->id_wali !== Auth::id()) {

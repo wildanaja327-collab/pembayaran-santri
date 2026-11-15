@@ -303,6 +303,14 @@
 .santri-assistant-panel {
     max-height: calc(100dvh - 120px);
 }
+/* Laptop 1366x768 / layar tinggi <= 800px: sesuaikan tinggi panel agar tidak menyentuh topbar */
+@media (max-height: 800px) {
+    .santri-assistant-panel {
+        bottom: 84px;
+        height: min(460px, calc(100dvh - 104px));
+        max-height: calc(100dvh - 104px);
+    }
+}
 @media (max-width: 575.98px) {
     #kang-santri-buddy {
         bottom: 16px;

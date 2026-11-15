@@ -45,7 +45,8 @@
             width: 100%;
             min-height: 100vh;
             min-height: 100dvh;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
             background: #011612;
         }
 
@@ -141,7 +142,9 @@
            ======================================================== */
         .auth-container {
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
+            align-items: stretch;
             width: 100%;
             position: relative;
             z-index: 10;
@@ -157,7 +160,7 @@
             justify-content: space-between;
             align-items: center;
             text-align: center;
-            padding: 3.5rem 3.5rem;
+            padding: 3rem 3.25rem;
             color: #ffffff;
             overflow: hidden;
             will-change: transform;
@@ -170,14 +173,12 @@
             background-color: #ffffff;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding: clamp(2rem, 3.5vw, 3.5rem) clamp(2rem, 4vw, 4rem);
+            justify-content: flex-start;
+            padding: clamp(1.75rem, 3vw, 3rem) clamp(2rem, 4vw, 4rem);
             position: relative;
             box-shadow: -15px 0 35px rgba(0, 0, 0, 0.08);
             will-change: transform;
             transition: transform 0.85s var(--curtain-easing), box-shadow 0.85s ease;
-            overflow-y: auto;
-            max-height: 100vh;
         }
 
         /* EFEK TIRAI TERBELAH KIRI & KANAN (THE CURTAIN SPLIT REVEAL) */
@@ -491,7 +492,7 @@
         .login-wrapper {
             max-width: 430px;
             width: 100%;
-            margin: 0 auto;
+            margin: auto;
             animation: fadeInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
@@ -785,6 +786,98 @@
         }
 
         /* Responsive Breakpoints */
+        /* ---------- Laptop Resolusi 1366x768 / 1280x720 (Layar Lebar dengan Tinggi <= 820px) ---------- */
+        @media (min-width: 992px) and (max-height: 820px) {
+            .auth-showcase {
+                padding: 1.5rem 2.25rem;
+            }
+            .emblem-wrapper {
+                width: 96px;
+                height: 96px;
+                margin-bottom: 0.75rem;
+            }
+            .brand-pesantren-sub {
+                font-size: 0.75rem;
+                margin-bottom: 0.2rem;
+            }
+            .brand-pesantren-title {
+                font-size: 1.55rem;
+                margin-bottom: 0.35rem;
+            }
+            .brand-tagline {
+                font-size: 1.05rem;
+                margin-bottom: 0.5rem;
+            }
+            .brand-desc {
+                font-size: 0.84rem;
+                line-height: 1.5;
+                margin-bottom: 1rem;
+            }
+            .institusi-badges {
+                gap: 0.5rem;
+            }
+            .institusi-badge-pill {
+                padding: 0.35rem 0.8rem;
+                font-size: 0.72rem;
+            }
+            .showcase-footer {
+                padding-top: 0.75rem;
+                font-size: 0.7rem;
+            }
+            .auth-form-pane {
+                padding: 1.25rem 2.5rem;
+            }
+            .form-header-badge {
+                padding: 0.25rem 0.75rem;
+                font-size: 0.7rem;
+                margin-bottom: 0.45rem;
+            }
+            .form-title {
+                font-size: 1.5rem;
+                margin-bottom: 0.2rem;
+            }
+            .form-subtitle {
+                font-size: 0.8rem;
+                margin-bottom: 0.85rem;
+            }
+            .role-switcher-wrapper {
+                margin-bottom: 0.75rem;
+            }
+            .role-btn {
+                padding: 0.5rem 0.4rem;
+                font-size: 0.76rem;
+            }
+            .role-hint-banner {
+                padding: 0.45rem 0.75rem;
+                font-size: 0.72rem;
+                margin-bottom: 0.9rem;
+            }
+            .custom-form-group {
+                margin-bottom: 0.85rem;
+            }
+            .form-label-custom {
+                font-size: 0.76rem;
+                margin-bottom: 0.3rem;
+            }
+            .form-control-custom {
+                height: 42px;
+                font-size: 0.85rem;
+            }
+            .auth-actions {
+                margin-bottom: 0.9rem;
+                font-size: 0.76rem;
+            }
+            .btn-submit-login {
+                height: 44px;
+                font-size: 0.9rem;
+            }
+            .auth-footer {
+                margin-top: 1rem;
+                padding-top: 0.75rem;
+                font-size: 0.7rem;
+            }
+        }
+
         @media (max-width: 991.98px) {
             .auth-viewport {
                 overflow-y: auto !important;
@@ -825,7 +918,10 @@
 
         /* ---------- Tablet portrait & HP besar ---------- */
         @media (max-width: 767.98px) {
-            .auth-showcase { padding: 1.75rem 1.25rem 1.5rem; }
+            .auth-showcase { padding: 1.5rem 1.25rem 1.25rem; }
+            .showcase-top { flex-direction: column; gap: 0.45rem; }
+            .arabic-marquee-wrapper { max-width: 100%; }
+            .arabic-marquee-text { font-size: 1.15rem; }
             .showcase-center { margin: 0.5rem 0; max-width: 100%; }
             .brand-pesantren-title { font-size: 1.4rem; }
             .brand-desc { font-size: 0.88rem; margin-bottom: 1.25rem; }
@@ -838,28 +934,66 @@
 
         /* ---------- HP (<= 575px): ringkas bagian hijau agar form login langsung terlihat ---------- */
         @media (max-width: 575.98px) {
-            .auth-showcase { padding: 1.25rem 1rem 1rem; gap: 0.5rem; }
+            .auth-showcase { padding: 1.15rem 1rem 1rem; gap: 0.4rem; }
             .showcase-top { width: 100%; justify-content: center; }
-            .emblem-wrapper { width: 84px; height: 84px; margin-bottom: 0.75rem; }
+            .arabic-marquee-text { font-size: 1.05rem; }
+            .emblem-wrapper { width: 80px; height: 80px; margin-bottom: 0.6rem; }
             .brand-pesantren-sub { font-size: 0.72rem; letter-spacing: 1.5px; }
-            .brand-pesantren-title { font-size: 1.2rem; margin-bottom: 0.4rem; }
-            .brand-tagline { font-size: 0.78rem; }
+            .brand-pesantren-title { font-size: 1.2rem; margin-bottom: 0.35rem; }
+            .brand-tagline { font-size: 0.78rem; margin-bottom: 0.35rem; }
             .brand-desc, .showcase-footer { display: none; }
-            .institusi-badges { gap: 0.4rem; margin-top: 0.5rem; }
+            .institusi-badges { gap: 0.4rem; margin-top: 0.4rem; }
             .institusi-badge-pill { padding: 0.3rem 0.7rem; font-size: 0.7rem; }
             /* Logo ganda (emblem hijau di atas + badge form) -> cukup satu */
             .auth-form-pane .d-md-none { display: none !important; }
-            .auth-form-pane { padding: 1.5rem 1.1rem 2.25rem; border-radius: 1.25rem 1.25rem 0 0; margin-top: -0.75rem; position: relative; z-index: 3; }
+            .auth-form-pane { padding: 1.5rem 1.15rem 2.25rem; border-radius: 1.25rem 1.25rem 0 0; margin-top: -0.75rem; position: relative; z-index: 3; }
             .form-title { font-size: 1.4rem; }
-            .form-subtitle { font-size: 0.82rem; margin-bottom: 1.1rem; }
-            .role-btn { padding: 0.6rem 0.25rem; font-size: 0.72rem; gap: 0.25rem; flex-direction: column; }
-            .role-hint-banner { font-size: 0.72rem; padding: 0.5rem 0.65rem; flex-wrap: wrap; }
+            .form-subtitle { font-size: 0.82rem; margin-bottom: 1rem; }
             .form-control-custom { height: 50px; font-size: 16px; } /* 16px: mencegah zoom otomatis di iPhone */
             .auth-actions { flex-wrap: wrap; gap: 0.5rem; }
             .btn-submit-login { height: 52px; }
             .auth-footer { margin-top: 1.25rem; }
             .portal-emblem-loader { width: 104px; height: 104px; }
             .auth-curtain-reveal-bg { padding: 1.25rem; }
+        }
+
+        /* Kartu Informasi Layanan Portal di Form Login */
+        .portal-feature-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.85rem;
+            padding: 0.65rem 0.5rem;
+            margin-bottom: 1.35rem;
+            text-align: center;
+        }
+        .portal-feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #475569;
+            line-height: 1.25;
+        }
+        .portal-feature-item i {
+            font-size: 1.05rem;
+            color: #059669;
+        }
+        @media (min-width: 992px) and (max-height: 820px) {
+            .portal-feature-strip {
+                padding: 0.45rem 0.4rem;
+                margin-bottom: 0.9rem;
+            }
+            .portal-feature-item {
+                font-size: 0.68rem;
+            }
+            .portal-feature-item i {
+                font-size: 0.92rem;
+            }
         }
 
         /* ---------- HP kecil (<= 359px) ---------- */
@@ -927,7 +1061,7 @@
                         <span class="pulse-dot"></span>
                         <span>Sistem Keuangan Santri v2.6</span>
                     </div>
-                    <div class="arabic-marquee-wrapper d-none d-sm-flex" title="Kalam Hikmah & Ayat Pesantren (Arahkan kursor untuk menjeda)">
+                    <div class="arabic-marquee-wrapper d-flex" title="Kalam Hikmah & Ayat Pesantren (Arahkan kursor untuk menjeda)">
                         <div class="arabic-marquee-track">
                             <div class="arabic-marquee-group">
                                 <span class="arabic-marquee-text">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
@@ -1015,10 +1149,26 @@
                             <img src="{{ asset('img/logo.jpg') }}" alt="Logo PP Darul Muttaqin" class="rounded-circle" style="width: 100%; height: 100%; object-fit: contain;">
                         </div>
                         <div class="form-header-badge">
-                            <i class="bi bi-shield-lock-fill"></i> Portal Autentikasi Pengguna
+                            <i class="bi bi-shield-lock-fill"></i> Portal Autentikasi Resmi
                         </div>
                         <h2 class="form-title">Selamat Datang</h2>
-                        <p class="form-subtitle">Pilih role pengujian atau masukkan kredensial akun terdaftar Anda.</p>
+                        <p class="form-subtitle">Silakan masuk menggunakan akun resmi yang terdaftar pada sistem.</p>
+                    </div>
+
+                    <!-- Fitur Layanan Portal Terpadu -->
+                    <div class="portal-feature-strip">
+                        <div class="portal-feature-item">
+                            <i class="bi bi-qr-code-scan"></i>
+                            <span>QRIS &amp; Virtual Account</span>
+                        </div>
+                        <div class="portal-feature-item border-start border-end">
+                            <i class="bi bi-receipt-cutoff"></i>
+                            <span>Kwitansi Digital Resmi</span>
+                        </div>
+                        <div class="portal-feature-item">
+                            <i class="bi bi-whatsapp"></i>
+                            <span>Notifikasi WA Otomatis</span>
+                        </div>
                     </div>
 
                     <!-- AJAX Dynamic Alert Box -->
@@ -1039,39 +1189,6 @@
                         </div>
                     @endif
 
-                    <!-- Role Selector Tabs (Physical Morphing Glider) -->
-                    <div class="role-switcher-wrapper">
-                        <div class="d-flex align-items-center justify-content-between mb-2">
-                            <label class="form-label-custom mb-0">Role Akun Demo Cepat:</label>
-                            <span class="small text-muted" style="font-size: 0.72rem;"><i class="bi bi-lightning-charge-fill text-warning"></i> 1-Klik Isi Form</span>
-                        </div>
-                        
-                        <div class="role-switcher-card" id="role_card_container">
-                            <div class="role-glider" id="role_glider"></div>
-                            <button type="button" class="role-btn active" id="btn_role_admin" onclick="switchRole('admin', 0)">
-                                <i class="bi bi-shield-shaded role-badge-icon"></i>
-                                <span>Admin</span>
-                            </button>
-                            <button type="button" class="role-btn" id="btn_role_bendahara" onclick="switchRole('bendahara', 1)">
-                                <i class="bi bi-wallet2 role-badge-icon"></i>
-                                <span>Bendahara</span>
-                            </button>
-                            <button type="button" class="role-btn" id="btn_role_wali" onclick="switchRole('wali', 2)">
-                                <i class="bi bi-people-fill role-badge-icon"></i>
-                                <span>Wali Santri</span>
-                            </button>
-                        </div>
-
-                        <!-- Role Dynamic Context Hint (Rata Tengah) -->
-                        <div class="role-hint-banner mt-2" id="role_hint_box">
-                            <span id="role_hint_text">
-                                <i class="bi bi-shield-check text-success me-1"></i>
-                                Administrator: Hak akses penuh, audit trail, &amp; gateway.
-                            </span>
-                            <span class="auto-fill-tag">Auto-Filled</span>
-                        </div>
-                    </div>
-
                     <!-- Form Login -->
                     <form action="{{ route('login.post') }}" method="POST" id="form_login" onsubmit="return handleFormSubmit(event)">
                         @csrf
@@ -1084,7 +1201,7 @@
                                 <input type="text" name="username" id="input_username" 
                                        class="form-control-custom" 
                                        placeholder="Masukkan username Anda" 
-                                       value="{{ old('username', 'admin') }}" 
+                                       value="{{ old('username') }}" 
                                        required autofocus autocomplete="username">
                             </div>
                         </div>
@@ -1097,41 +1214,41 @@
                                 <input type="password" name="password" id="input_password" 
                                        class="form-control-custom" 
                                        placeholder="Masukkan kata sandi" 
-                                       value="admin123"
                                        required autocomplete="current-password">
                                 <button type="button" class="btn-toggle-pwd" id="btn_toggle_password" onclick="togglePasswordVisibility()" title="Tampilkan/Sembunyikan Kata Sandi">
-                                <i class="bi bi-eye-fill" id="icon_pwd_toggle"></i>
-                            </button>
+                                    <i class="bi bi-eye-fill" id="icon_pwd_toggle"></i>
+                                </button>
+                            </div>
                         </div>
+
+                        <!-- Remember & Action Link -->
+                        <div class="auth-actions">
+                            <label class="custom-check">
+                                <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <span>Ingat sesi masuk</span>
+                            </label>
+                            <a href="javascript:void(0)" onclick="showHelpModal()" class="help-link">
+                                <i class="bi bi-question-circle me-1"></i>Bantuan Akses
+                            </a>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-submit-login" id="btn_login_submit">
+                            <span class="btn-text">Masuk ke Sistem</span>
+                            <i class="bi bi-arrow-right-circle-fill fs-5 btn-icon"></i>
+                        </button>
+                    </form>
+
+                    <!-- Footer & Security Badge -->
+                    <div class="auth-footer">
+                        <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
+                            <i class="bi bi-shield-fill-check text-success"></i>
+                            <span class="fw-semibold text-secondary">Aplikasi Terlindungi Sistem Keamanan Berlapis</span>
+                        </div>
+                        <div>&copy; {{ date('Y') }} Pondok Pesantren Darul Muttaqin Al Islami</div>
                     </div>
 
-                    <!-- Remember & Action Link -->
-                    <div class="auth-actions">
-                        <label class="custom-check">
-                            <input type="checkbox" name="remember" id="remember" checked>
-                            <span>Ingat sesi masuk</span>
-                        </label>
-                        <a href="javascript:void(0)" onclick="showHelpModal()" class="help-link">
-                            <i class="bi bi-question-circle me-1"></i>Bantuan Akses
-                        </a>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn-submit-login" id="btn_login_submit">
-                        <span class="btn-text">Masuk ke Sistem</span>
-                        <i class="bi bi-arrow-right-circle-fill fs-5 btn-icon"></i>
-                    </button>
-                </form>
-
-                <!-- Footer & Security Badge -->
-                <div class="auth-footer">
-                    <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
-                        <i class="bi bi-shield-fill-check text-success"></i>
-                        <span class="fw-semibold text-secondary">Aplikasi Terlindungi Sistem Keamanan Berlapis</span>
-                    </div>
-                    <div>&copy; {{ date('Y') }} Pondok Pesantren Darul Muttaqin Al Islami</div>
                 </div>
-
             </div>
         </div>
 
@@ -1143,43 +1260,37 @@
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
                 <div class="modal-header bg-success text-white py-3 px-4">
                     <h6 class="modal-title fw-bold">
-                        <i class="bi bi-info-circle me-2"></i>Informasi &amp; Kredensial Pengujian
+                        <i class="bi bi-info-circle me-2"></i>Panduan &amp; Bantuan Akses Sistem
                     </h6>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <p class="small text-muted mb-3">
-                        Sistem ini menggunakan 3 tingkatan hak akses wewenang (*Separation of Duties*). Gunakan akun pengujian berikut saat demonstrasi sidang:
+                        Sistem Informasi Manajemen Keuangan Santri (E-Syahriyah) digunakan oleh Wali Santri serta Pengelola Pondok Pesantren Darul Muttaqin Al Islami.
                     </p>
                     <div class="list-group list-group-flush small">
-                        <div class="list-group-item px-0 py-2 d-flex justify-content-between align-items-center">
-                            <div>
-                                <span class="badge bg-dark me-1">Administrator</span>
-                                <div class="fw-bold mt-1">Username: <code>admin</code></div>
-                                <div class="text-muted">Password: <code>admin123</code></div>
+                        <div class="list-group-item px-0 py-2.5 d-flex align-items-start gap-3">
+                            <div class="rounded-circle bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center flex-shrink-0 mt-1" style="width: 34px; height: 34px;">
+                                <i class="bi bi-people-fill"></i>
                             </div>
-                            <button class="btn btn-sm btn-outline-secondary" onclick="switchRole('admin', 0); bootstrap.Modal.getInstance(document.getElementById('modalHelp')).hide();">Pilih</button>
+                            <div>
+                                <div class="fw-bold text-dark">Akses Portal Wali Santri</div>
+                                <div class="text-muted">Gunakan <strong>Username</strong> dan <strong>Kata Sandi</strong> yang telah diberikan oleh Bagian Administrasi / Bendahara Pondok untuk melihat tagihan, membayar via QRIS/Virtual Account, dan mengunduh kwitansi resmi.</div>
+                            </div>
                         </div>
-                        <div class="list-group-item px-0 py-2 d-flex justify-content-between align-items-center">
-                            <div>
-                                <span class="badge bg-success me-1">Bendahara</span>
-                                <div class="fw-bold mt-1">Username: <code>bendahara</code></div>
-                                <div class="text-muted">Password: <code>bendahara123</code></div>
+                        <div class="list-group-item px-0 py-2.5 d-flex align-items-start gap-3">
+                            <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center flex-shrink-0 mt-1" style="width: 34px; height: 34px;">
+                                <i class="bi bi-shield-lock-fill"></i>
                             </div>
-                            <button class="btn btn-sm btn-outline-secondary" onclick="switchRole('bendahara', 1); bootstrap.Modal.getInstance(document.getElementById('modalHelp')).hide();">Pilih</button>
-                        </div>
-                        <div class="list-group-item px-0 py-2 d-flex justify-content-between align-items-center">
                             <div>
-                                <span class="badge bg-info text-dark me-1">Wali Santri (Demo WA)</span>
-                                <div class="fw-bold mt-1">Username: <code>wali_0002</code></div>
-                                <div class="text-muted">Password: <code>wali123</code></div>
+                                <div class="fw-bold text-dark">Lupa Kata Sandi / Kendala Masuk</div>
+                                <div class="text-muted">Demi keamanan data keuangan santri, pengaturan ulang kata sandi (<em>reset password</em>) dilakukan melalui verifikasi Bagian Tata Usaha atau Bendahara Pondok Pesantren.</div>
                             </div>
-                            <button class="btn btn-sm btn-outline-secondary" onclick="switchRole('wali', 2); bootstrap.Modal.getInstance(document.getElementById('modalHelp')).hide();">Pilih</button>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer bg-light py-2 px-4 border-0">
-                    <button type="button" class="btn btn-sm btn-secondary rounded-pill px-3" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-sm btn-secondary rounded-pill px-3" data-bs-dismiss="modal">Mengerti</button>
                 </div>
             </div>
         </div>
@@ -1188,72 +1299,8 @@
     <!-- Bootstrap 5 Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- JavaScript Interaktif (Morphing Glider & Split Curtain Reveal Transition) -->
+    <!-- JavaScript Interaktif (Split Curtain Reveal Transition) -->
     <script>
-        const roleData = {
-            admin: {
-                username: 'admin',
-                password: 'admin123',
-                hint: '<i class="bi bi-shield-check text-success me-1"></i> Administrator: Hak akses penuh, audit trail, &amp; gateway.',
-                btnId: 'btn_role_admin'
-            },
-            bendahara: {
-                username: 'bendahara',
-                password: 'bendahara123',
-                hint: '<i class="bi bi-wallet2 text-success me-1"></i> Bendahara: Kasir tunai, rekonsiliasi Midtrans, &amp; laporan.',
-                btnId: 'btn_role_bendahara'
-            },
-            wali: {
-                username: 'wali_0002',
-                password: 'wali123',
-                hint: '<i class="bi bi-whatsapp text-success me-1"></i> Wali Santri: Portal multi-anak (Fatimah &amp; Farhan) + Notif WA.',
-                btnId: 'btn_role_wali'
-            }
-        };
-
-        // Morphing Slider Transition
-        function switchRole(roleKey, roleIndex) {
-            const data = roleData[roleKey];
-            if (!data) return;
-
-            // Animate Glider Physically (Morph translation with spring bounce)
-            const glider = document.getElementById('role_glider');
-            if (glider) {
-                glider.style.transform = `translateX(${roleIndex * 100}%)`;
-            }
-
-            // Update Tab Active Text States
-            document.querySelectorAll('.role-btn').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = document.getElementById(data.btnId);
-            if (activeBtn) activeBtn.classList.add('active');
-
-            // View Transitions API (Native Web Morph support if available)
-            const updateFields = () => {
-                const hintText = document.getElementById('role_hint_text');
-                hintText.innerHTML = data.hint;
-
-                const userInput = document.getElementById('input_username');
-                const passInput = document.getElementById('input_password');
-
-                userInput.value = data.username;
-                passInput.value = data.password;
-
-                // Trigger soft flash transition
-                userInput.classList.remove('flash-active');
-                passInput.classList.remove('flash-active');
-                void userInput.offsetWidth;
-                void passInput.offsetWidth;
-                userInput.classList.add('flash-active');
-                passInput.classList.add('flash-active');
-            };
-
-            if (document.startViewTransition) {
-                document.startViewTransition(updateFields);
-            } else {
-                updateFields();
-            }
-        }
-
         // Toggle Password Visibility
         function togglePasswordVisibility() {
             const pwdInput = document.getElementById('input_password');
