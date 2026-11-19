@@ -490,7 +490,7 @@
             </button>
 
             <!-- Action 4: Hubungi Bendahara CS -->
-            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\Pengaturan::get('pesantren_telepon', '081234567890')) }}?text={{ urlencode('Assalamu\'alaikum Bendahara Pondok Pesantren, saya wali santri ingin bertanya mengenai tagihan santri.') }}" target="_blank" class="assistant-action-card text-decoration-none">
+            <a href="https://wa.me/62881024264010?text={{ urlencode('Assalamu\'alaikum Bendahara Pondok Pesantren, saya wali santri ingin bertanya mengenai tagihan santri.') }}" target="_blank" class="assistant-action-card text-decoration-none">
                 <div class="assistant-card-icon bg-emerald-subtle text-success" style="background:#dcfce7;">
                     <i class="bi bi-whatsapp"></i>
                 </div>

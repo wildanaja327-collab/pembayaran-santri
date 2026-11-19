@@ -551,7 +551,7 @@
             <h6 class="fw-bold text-dark mb-1">Masih Mengalami Kendala atau Butuh Bantuan?</h6>
             <p class="small text-muted mb-3">Tim Layanan Administrasi &amp; Keuangan Pesantren siap membantu Ayah/Bunda dengan senang hati.</p>
             <div>
-                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\Pengaturan::get('pesantren_telepon', '081234567890')) }}?text={{ urlencode('Assalamu\'alaikum Bendahara Pesantren, saya wali santri ingin berkonsultasi mengenai pembayaran tagihan.') }}" target="_blank" class="btn btn-success fw-semibold px-4 py-2 shadow-sm rounded-pill">
+                <a href="https://wa.me/62881024264010?text={{ urlencode('Assalamu\'alaikum Bendahara Pesantren, saya wali santri ingin berkonsultasi mengenai pembayaran tagihan.') }}" target="_blank" class="btn btn-success fw-semibold px-4 py-2 shadow-sm rounded-pill">
                     <i class="bi bi-whatsapp me-2"></i>Hubungi WhatsApp Layanan Keuangan
                 </a>
             </div>
